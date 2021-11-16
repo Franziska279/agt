@@ -1,17 +1,9 @@
-
-
-```
 <p align="center">
- <img src="pics\Wanderlust.png" alt="Wanderlust" style="zoom:50%;" />
+ <img src="pics\Wanderlust.png" alt="Wanderlust" style="zoom:20%;" />
 </p>
-```
-
-<img src="pics\Wanderlust.png" alt="Wanderlust" style="zoom:50%;" />
-
 
 
 Die App Wanderlust (Name und Logo können jederzeit noch geändert werden) ist die Application, welche für den Kurs Algorithmic Game Theorie erstellt werden soll.
-
 
 
 
