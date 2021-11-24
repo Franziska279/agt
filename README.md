@@ -3,7 +3,7 @@
 </p>
 
 
-Die App Wanderlust (Name und Logo können jederzeit noch geändert werden) ist die Application, welche für den Kurs Algorithmic Game Theorie erstellt werden soll.
+Die App Travelr (Name und Logo können jederzeit noch geändert werden) ist die Application, welche für den Kurs Algorithmic Game Theorie erstellt werden soll.
 
 
 
