@@ -3,7 +3,7 @@
 </p>
 
 
-Die App Travelr (Name und Logo können jederzeit noch geändert werden) ist die Application, welche für den Kurs Algorithmic Game Theorie erstellt werden soll.
+Die App Wanderlust (Name und Logo können noch geändert werden) ist die Application, welche für den Kurs Algorithmic Game Theorie erstellt wird.
 
 
 
@@ -20,17 +20,17 @@ Die Berechnung soll nach der Vorlage von Burda (der Methode von Voting) berechne
 
 #### ToDo
 
-- [ ] Flutter Starter-App erstellen
-- [ ] Remote Design der Applikation erstellen
-- [ ] Login / Authentification implementieren
+- [ ] Grund-Funktionalität der App
+- [ ] Prototyp des Designs erstellen
+- [ ] Login / Authentifikation implementieren
 - [ ] Start-Page mit Trip Übersicht implementieren
 - [ ] Prozess der Neuanlegung eines Trips + Mitglieder hinzufügen implementieren
-- [ ] Mechanismus zur Generierung der größten Zufiredenheit ( + Limit der Strecke ect.) ausarbeiten
+- [ ] Mechanismus zur Generierung der größten Zufriedenheit (, Limit der Strecke ect.) ausarbeiten
 - [ ] Mapping des Ergebnisses durch HERE SDK
 
 
 
-Diese Liste ist nur eine erste Übersicht. das muss natürlich nocheinmal überarbeitet werden, sobal wir einen genauen Plan haben, was zu tun ist ;)
+Diese Liste ist eine erste Übersicht.
 
 
 

@@ -1,4 +1,4 @@
-# Wanderlust
+# Travelr
 A project for Algorithmic Game Theory.
 
 By:
