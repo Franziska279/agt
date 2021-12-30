@@ -1,5 +1,14 @@
 extends layout
 
 block content
-    h1= title
+    div.title-div
+        img(src='images/Travelr_Logo.png').logo-small
+        h1= title
     p This is the page where you should be able to modify your routing request
+    // TODO: insert stuff and display data (DB -> SQLITE)
+    br
+    br
+    br
+    form(action='compute', method='POST')
+        input.hidden(name='fromModify')
+        input(type='submit', value='Compute').action

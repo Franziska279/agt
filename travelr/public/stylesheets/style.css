@@ -45,3 +45,13 @@ a {
   height: auto;
   width: 200px;
 }
+
+.logo-small {
+  height: auto;
+  width: 50px;
+}
+
+.title-div * {
+  display: inline;
+  vertical-align: middle;
+}
