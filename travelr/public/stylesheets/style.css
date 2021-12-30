@@ -11,7 +11,7 @@ a {
 .action {
   display: inline-block;
   padding: 15px 10px 15px 10px;
-  font-size: 26px;
+  font-size: 20px;
   width: 250px;
   color: white;
   background-color: darkorange;
@@ -35,4 +35,9 @@ a {
   background-color: #f47104;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+
+#logo {
+  height: auto;
+  width: 200px;
 }
