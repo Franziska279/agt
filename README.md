@@ -1,5 +1,5 @@
 <p align="center">
- <img src="pics\Travelr App Logo.png" alt="Wanderlust" style="zoom:20%;" />
+ <img src="pics\Travelr_Logo.png" alt="Wanderlust" style="zoom:20%;" />
 </p>
 
 
