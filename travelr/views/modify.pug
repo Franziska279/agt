@@ -6,8 +6,23 @@ block content
         h1= title
     p This is the page where you should be able to modify your routing request
     // TODO: insert stuff and display data (DB -> SQLITE)
-    br
-    br
+    div#grid-container
+        div#variable-div
+            form#variable-form
+                input(name='max_km', placeholder='Max Distance (km)', type='text')
+                input(name='k', placeholder='Max Seats', type='text')
+                input(name='range', placeholder='Utility Range (-10;10)', type='text')
+                input(name='fixed_cost', placeholder='Fixed Cost (€)', type='text')
+                input(name='city_cost', placeholder='City Cost (€)', type='text')
+        div#form-div
+            form#insert-form
+                input(name='name', placeholder='Name', type='text')
+                input(name='budget', placeholder='Budget (€)', type='text')
+                input(name='preferences', placeholder='Preferences (Tropea=8, etc.)', type='text')
+        div#scroll-div
+            p Franzi (100€) -> { Tropea: 8, Scilla: 3, Reggio: -2 }
+            p Kerstin (200€) -> { Scilla: 7, Reggio: 2, Tropea: 1 }
+            p Ruth (150€) -> { Tropea: 7, Reggio: 5, Scilla: -3 }
     br
     form(action='compute', method='POST')
         input.hidden(name='fromModify')

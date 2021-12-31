@@ -55,3 +55,54 @@ a {
   display: inline;
   vertical-align: middle;
 }
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.scroll {
+  width: 20em;
+  height: 30em;
+  overflow-y: scroll;
+}
+
+#grid-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: 1fr auto auto auto;
+  grid-template-areas:
+    'variables variables variables'
+    'form list list'
+    'form list list'
+    'form list list';
+}
+
+#variable-div {
+  grid-area: variables;
+}
+
+#form-div {
+  grid-area: form;
+}
+
+.scroll-div {
+  grid-area: list;
+}
