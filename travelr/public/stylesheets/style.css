@@ -31,13 +31,29 @@ a {
   box-shadow: 0 9px #8f8f8f;
 }
 
-/*.action:hover {*/
-/*  background-color: orange; !* Green *!*/
-/*}*/
-
 .action:active {
   background-color: #f47104;
   box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.small-action {
+  display: inline-block;
+  padding: 5px 10px;
+  color: white;
+  background-color: indianred;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 5px #8f8f8f;
+}
+
+.small-action:active {
+  background-color: #ae4a4a;
+  box-shadow: 0 2px #666;
   transform: translateY(4px);
 }
 
@@ -77,16 +93,13 @@ a {
   background: #555;
 }
 
-.scroll {
-  width: 20em;
-  height: 30em;
-  overflow-y: scroll;
-}
-
 #grid-container {
+  margin: auto;
+  max-width: 1000px;
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: 1fr 1fr auto;
+  column-gap: 25px;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr auto auto auto;
   grid-template-areas:
     'variables variables variables'
@@ -103,6 +116,57 @@ a {
   grid-area: form;
 }
 
-.scroll-div {
+#list-div {
   grid-area: list;
+  height: 82%;
 }
+
+#variable-form {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#variable-form > div > input {
+  width: 100px;
+}
+
+#insert-form {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+}
+
+#insert-form > label {
+  text-align: left;
+}
+
+#preferences {
+  height: 200px;
+  resize: none;
+}
+
+#scroll-div {
+  height: inherit;
+  overflow-y: scroll;
+  border: #888888 solid 1px;
+  border-radius: 2px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+#scroll-div > div > p {
+  text-align: left;
+  margin-top: 0;
+}
+
+#scroll-div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*margin-bottom: 8px;*/
+  align-items: baseline;
+}
+

@@ -4,25 +4,51 @@ block content
     div.title-div
         img(src='images/Travelr_Logo.png').logo-small
         h1= title
+    br
     p This is the page where you should be able to modify your routing request
     // TODO: insert stuff and display data (DB -> SQLITE)
     div#grid-container
         div#variable-div
             form#variable-form
-                input(name='max_km', placeholder='Max Distance (km)', type='text')
-                input(name='k', placeholder='Max Seats', type='text')
-                input(name='range', placeholder='Utility Range (-10;10)', type='text')
-                input(name='fixed_cost', placeholder='Fixed Cost (€)', type='text')
-                input(name='city_cost', placeholder='City Cost (€)', type='text')
+                div
+                    label(for='max_km') Max. KM:!{' '}
+                    input(id='max_km', name='max_km', placeholder='Max Distance (km)', type='text')
+                div
+                    label(for='k') Max. Seats:!{' '}
+                    input(id='k', name='k', placeholder='Max Seats', type='text')
+                div
+                    label(for='range') Utility Range:!{' '}
+                    input(id='range', name='range', placeholder='Utility Range (-10;10)', type='text')
+                div
+                    label(for='fixed_cost') Fixed Cost:!{' '}
+                    input(id='fixed_cost', name='fixed_cost', placeholder='Fixed Cost (€)', type='text')
+                div
+                    label(for='city_cost') City Cost:!{' '}
+                    input(id='city_cost', name='city_cost', placeholder='City Cost (€)', type='text')
         div#form-div
+            h2 Insert a participant:
             form#insert-form
-                input(name='name', placeholder='Name', type='text')
-                input(name='budget', placeholder='Budget (€)', type='text')
-                input(name='preferences', placeholder='Preferences (Tropea=8, etc.)', type='text')
-        div#scroll-div
-            p Franzi (100€) -> { Tropea: 8, Scilla: 3, Reggio: -2 }
-            p Kerstin (200€) -> { Scilla: 7, Reggio: 2, Tropea: 1 }
-            p Ruth (150€) -> { Tropea: 7, Reggio: 5, Scilla: -3 }
+                label(for='name') Name:!{' '}
+                input(id='name', name='name', placeholder='Name', type='text')
+                label(for='budget') Budget:!{' '}
+                input(id='budget', name='budget', placeholder='Budget (€)', type='text')
+                label(for='preferences') Preferences:!{' '}
+                textarea(id='preferences', name='preferences', placeholder='Preferences (Tropea=8, etc.)')
+                input(type='submit', value='Insert').small-action
+        div#list-div
+            h2 Active Participants:
+            div#scroll-div
+                div
+                    p Franzi (100€) -> { Tropea: 8, Scilla: 3, Reggio: -2 }
+                    button.small-action X
+                    // TODO: add data dynamically from SQLITE
+                div
+                    p Kerstin (200€) -> { Scilla: 7, Reggio: 2, Tropea: 1 }
+                    button.small-action X
+                div
+                    p Ruth (150€) -> { Tropea: 7, Reggio: 5, Scilla: -3 }
+                    button.small-action X
+            button.small-action Clear
     br
     form(action='compute', method='POST')
         input.hidden(name='fromModify')
