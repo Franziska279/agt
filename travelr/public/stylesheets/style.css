@@ -9,7 +9,7 @@ a {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .action {
@@ -148,7 +148,7 @@ a {
   resize: none;
 }
 
-#scroll-div {
+.scroll-div {
   height: inherit;
   overflow-y: scroll;
   border: #888888 solid 1px;
@@ -157,16 +157,85 @@ a {
   margin-bottom: 5px;
 }
 
-#scroll-div > div > p {
+.scroll-div > div > p {
   text-align: left;
   margin-top: 0;
 }
 
-#scroll-div > div {
+#participant-list > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /*margin-bottom: 8px;*/
   align-items: baseline;
 }
 
+#result-grid {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-gap: 10px;
+  column-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 80px 60px auto;
+  grid-template-areas:
+          'tour tour tour tour tour tour'
+          'data data map map map map'
+          'participants participants map map map map';
+}
+
+#data-div {
+  grid-area: data;
+  margin: auto;
+}
+
+#data-div > h3 {
+  margin: 0;
+}
+
+#data {
+  display: flex;
+  column-gap: 10px;
+}
+
+#route-div {
+  grid-area: tour;
+}
+
+#route-div > h2 {
+  color:orange;
+  text-transform:uppercase;
+  margin-bottom: 0;
+}
+
+#route-text-div > p {
+  font-weight:bold;
+  color:white;
+  font-size: 18px;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+#route-text-div {
+  background-color:orange;
+  height: 30px;
+}
+
+#result-div {
+  grid-area: participants;
+  height: 89.8%;
+}
+
+#result-participant-div {
+  text-align: left;
+}
+
+#result-participant-div > p {
+  margin-top: 0;
+}
+
+#map-div {
+  grid-area: map;
+/*  placeholder */
+  height: 450px;
+  border: slategray solid 1px;
+}

@@ -12,19 +12,19 @@ block content
             form#variable-form
                 div
                     label(for='max_km') Max. KM:!{' '}
-                    input(id='max_km', name='max_km', placeholder='Max Distance (km)', type='text')
+                    input(id='max_km', name='max_km', placeholder='km', type='text')
                 div
                     label(for='k') Max. Seats:!{' '}
-                    input(id='k', name='k', placeholder='Max Seats', type='text')
+                    input(id='k', name='k', placeholder='4', type='text')
                 div
                     label(for='range') Utility Range:!{' '}
-                    input(id='range', name='range', placeholder='Utility Range (-10;10)', type='text')
+                    input(id='range', name='range', placeholder='-10;10', type='text')
                 div
                     label(for='fixed_cost') Fixed Cost:!{' '}
-                    input(id='fixed_cost', name='fixed_cost', placeholder='Fixed Cost (€)', type='text')
+                    input(id='fixed_cost', name='fixed_cost', placeholder='€', type='text')
                 div
                     label(for='city_cost') City Cost:!{' '}
-                    input(id='city_cost', name='city_cost', placeholder='City Cost (€)', type='text')
+                    input(id='city_cost', name='city_cost', placeholder='€', type='text')
         div#form-div
             h2 Insert a participant:
             form#insert-form
@@ -37,7 +37,7 @@ block content
                 input(type='submit', value='Insert').small-action
         div#list-div
             h2 Active Participants:
-            div#scroll-div
+            div.scroll-div#participant-list
                 div
                     p Franzi (100€) -> { Tropea: 8, Scilla: 3, Reggio: -2 }
                     button.small-action X

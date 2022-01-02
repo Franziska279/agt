@@ -4,4 +4,27 @@ block content
     div.title-div
         img(src='images/Travelr_Logo.png').logo-small
         h1= title
-    p This is the page where the results are shown after computation!
+        span !{' '}
+        form(action='modify', method='POST')
+            input.hidden(name='fromIndex')
+            // TODO: change hidden input name
+            input(type='submit', value='Back').small-action
+    // p This is the page where the results are shown after computation!
+    div#result-grid
+        div#route-div
+            h2 Tour Result:
+            div#route-text-div
+                p Cosenza - Tropea - Reggio Calabria - Catanzaro - Cosenza
+        div#data-div
+            h3 Data
+            div#data
+                p Distance: 500km
+                p Total Cost: 600€
+        div#result-div
+            h3 Participants
+            div.scroll-div#result-participant-div
+                p Franzi: 190€
+                p Kerstin: 200€
+                p Ruth: 210€
+        div#map-div
+
