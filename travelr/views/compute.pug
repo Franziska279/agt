@@ -1,4 +1,4 @@
-extends layout
+extends layout_compute
 
 block content
     div.title-div
@@ -8,7 +8,7 @@ block content
         form(action='modify', method='POST')
             input.hidden(name='fromIndex')
             // TODO: change hidden input name
-            input(type='submit', value='Back').small-action
+            input(type='submit', value='Back').small-action#back-btn
     // p This is the page where the results are shown after computation!
     div#result-grid
         div#route-div
