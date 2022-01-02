@@ -15,6 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
             center: { lat: 38.72807471947513, lng: 16.539936297329433 }
         });
 
+    // Create the default UI:
+    var ui = H.ui.UI.createDefault(map, defaultLayers);
+    //Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
     // TODO: test data
     var coordinates = [[39.298403014978675, 16.258142827309133],
         [38.67694273628852, 15.895550990399894],
@@ -30,4 +37,66 @@ document.addEventListener("DOMContentLoaded", function() {
         map.addObject(marker);
         //map.setCenter(coords);
     });
+
+    var start = '' + coordinates[0][0] + ',' + coordinates[0][1];
+    var waypoints = [];
+    coordinates.forEach(c => {
+        waypoints.push('' + c[0] + ',' + c[1]);
+    });
+
+    // Create the parameters for the routing request:
+    var routingParameters = {
+        'routingMode': 'fast',
+        'transportMode': 'car',
+        // The start point of the route:
+        'origin': start,
+        'via': new H.service.Url.MultiValueQueryParameter( waypoints ),
+        // The end point of the route:
+        'destination': start,
+        // Include the route shape in the response
+        'return': 'polyline',
+        'routeAttributes': 'summary'
+    };
+
+    // Define a callback function to process the routing response:
+    var onResult = function(result) {
+        // ensure that at least one route was found
+        if (result.routes.length) {
+            result.routes[0].sections.forEach((section) => {
+                // Create a linestring to use as a point source for the route line
+                let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+
+                // Create a polyline to display the route:
+                let routeLine = new H.map.Polyline(linestring, {
+                    style: { strokeColor: 'red', lineWidth: 3 }
+                });
+
+                // Create a marker for the start point:
+                let startMarker = new H.map.Marker(section.departure.place.location);
+
+                // Create a marker for the end point:
+                let endMarker = new H.map.Marker(section.arrival.place.location);
+
+                // Add the route polyline and the two markers to the map:
+                map.addObjects([routeLine]); //, startMarker, endMarker]);
+                console.log(routeLine)
+                // TODO: set map viewpoint to whole route
+                // Set the map's viewport to make the whole route visible:
+                // map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
+            //console.log(result.routes[0])
+                // TODO: calculate distance by getting distances between each waypoint
+            });
+        }
+    };
+
+    // Get an instance of the routing service version 8:
+    var router = platform.getRoutingService(null, 8);
+
+    // Call calculateRoute() with the routing parameters,
+    // the callback and an error callback function (called if a
+    // communication error occurs):
+    router.calculateRoute(routingParameters, onResult,
+        function(error) {
+            alert(error.message);
+        });
 });
