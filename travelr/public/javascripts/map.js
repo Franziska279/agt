@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // TODO: divide into functions! (Refactoring)
+
+    // obtain data from form
+    // TODO: prepare data in form from modify
+    //  to be able to process tour data, etc. easily in compute
+    //  maybe in JSON format
+
     var platform = new H.service.Platform({
         'apikey': 'IbLuSWOk8u4G011cI7N8QM1vIZXHHGbBNBwbZ8VkXpc'
     });
@@ -18,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Create the default UI:
     var ui = H.ui.UI.createDefault(map, defaultLayers);
     //Step 3: make the map interactive
-// MapEvents enables the event system
-// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+    // MapEvents enables the event system
+    // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
     // TODO: test data
@@ -104,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Add the route polyline and the two markers to the map:
                 map.addObjects([routeLine]); //, startMarker, endMarker]);
-                console.log(routeLine)
+                // console.log(routeLine)
                 // TODO: set map viewpoint to whole route
                 // Set the map's viewport to make the whole route visible:
                 // map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});

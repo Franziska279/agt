@@ -1,4 +1,4 @@
-extends layout
+extends layout_modify
 
 block content
     div.title-div
@@ -39,17 +39,36 @@ block content
             h2 Active Participants:
             div.scroll-div#participant-list
                 div
-                    p Franzi (100€) -> { Tropea: 8, Scilla: 3, Reggio: -2 }
+                    p
+                        span.name Franzi
+                        span !{' '}(
+                        span.budget 100€
+                        span ) - {
+                        span.preferences Tropea: 8, Scilla: 3, Reggio: -2
+                        span }
                     button.small-action X
                     // TODO: add data dynamically from SQLITE
                 div
-                    p Kerstin (200€) -> { Scilla: 7, Reggio: 2, Tropea: 1 }
+                    p
+                        span.name Kerstin
+                        span !{' '}(
+                        span.budget 200€
+                        span ) - {
+                        span.preferences Scilla: 7, Catanzaro: 2, Tropea: 1
+                        span }
                     button.small-action X
                 div
-                    p Ruth (150€) -> { Tropea: 7, Reggio: 5, Scilla: -3 }
+                    p
+                        span.name Ruth
+                        span !{' '}(
+                        span.budget 150€
+                        span ) - {
+                        span.preferences Tropea: 7, Reggio: 5, Scilla: -3
+                        span }
                     button.small-action X
             button.small-action Clear
     br
-    form(action='compute', method='POST')
-        input.hidden(name='fromModify')
+    form(action='compute', method='POST', onsubmit="return add_tour_data();")
+        input(type="hidden", name='fromModify')
+        input(type="hidden", id='tourData', name='tourData')
         input(type='submit', value='Compute').action
