@@ -11,6 +11,9 @@ block content
         div#variable-div
             form#variable-form
                 div
+                    label(for='start') Start/End:!{' '}
+                    input(id='start', name='start', placeholder='City Name', type='text')
+                div
                     label(for='max_km') Max. KM:!{' '}
                     input(id='max_km', name='max_km', placeholder='km', type='text')
                 div
@@ -44,7 +47,7 @@ block content
                         span !{' '}(
                         span.budget 100€
                         span ) - {
-                        span.preferences Tropea: 8, Scilla: 3, Reggio: -2
+                        span.preferences Tropea 89861: 8, Scilla 89058: 3, Reggio 89135: -2
                         span }
                     button.small-action X
                     // TODO: add data dynamically from SQLITE
@@ -54,7 +57,7 @@ block content
                         span !{' '}(
                         span.budget 200€
                         span ) - {
-                        span.preferences Scilla: 7, Catanzaro: 2, Tropea: 1
+                        span.preferences Scilla 89058: 7, Catanzaro 88100: 2, Tropea 89861: 1
                         span }
                     button.small-action X
                 div
@@ -63,7 +66,7 @@ block content
                         span !{' '}(
                         span.budget 150€
                         span ) - {
-                        span.preferences Tropea: 7, Reggio: 5, Scilla: -3
+                        span.preferences Tropea 89861: 7, Reggio 89135: 5, Scilla 89058: -3
                         span }
                     button.small-action X
             button.small-action Clear
