@@ -1,49 +1,47 @@
+const HERE_API_KEY = 'IbLuSWOk8u4G011cI7N8QM1vIZXHHGbBNBwbZ8VkXpc';
 // document.addEventListener("DOMContentLoaded", function() {
 async function set_map(cities) {
-    // TODO: divide into functions! (Refactoring)
-
-    // obtain data from form
-    // TODO: prepare data in form from modify
-    //  to be able to process tour data, etc. easily in compute
-    //  maybe in JSON format
-
     var platform = new H.service.Platform({
-        'apikey': 'IbLuSWOk8u4G011cI7N8QM1vIZXHHGbBNBwbZ8VkXpc'
+        'apikey': HERE_API_KEY
     });
+    var coordinates = await getCitiesCoordinates(platform, cities);
+    var map = createMap(platform, document.getElementById('map-div'));
+    // markCities(coordinates, map); // also done in route itself
+    markRoute(platform, map, getRoutingParameters(coordinates));
+}
 
+async function getCitiesCoordinates(platform, cities) {
     // TODO: add start and end dynamically
-    var coordinates = [[39.298403014978675, 16.258142827309133]];
-    // TODO: geocode service
+    var coordinates = [[39.298403014978675, 16.258142827309133]]; // TODO: make first of cities list
     var service = platform.getSearchService();
     for (const c of cities) {
-        let name = c.substring(0, c.lastIndexOf(" "));
-        let postalCode = c.substring(c.lastIndexOf(" "));
-        await service.geocode({
-            q: postalCode + ", " + name
-        }, (result) => {
-            // Add a marker for each location found
-            result.items.forEach((item) => {
-                //map.addObject(new H.map.Marker(item.position));
-                coordinates.push([item.position.lat, item.position.lng]);
-            });
-        }, alert);
-
+        await addCityCoordinatesToList(coordinates, service, c);
     }
     coordinates.push([39.298403014978675, 16.258142827309133]);
+    return coordinates;
+}
 
-    // TODO: test data
-    // var coordinates = [[39.298403014978675, 16.258142827309133],
-    //     [38.67694273628852, 15.895550990399894],
-    //     [38.09394081111101, 15.642539653630289],
-    //     [38.91023583099221, 16.579782783050636]];
+async function addCityCoordinatesToList(coordinates, service, c) {
+    let name = c.substring(0, c.lastIndexOf(" "));
+    let postalCode = c.substring(c.lastIndexOf(" "));
+    await service.geocode({
+        q: postalCode + ", " + name
+    }, (result) => {
+        // Add a marker for each location found
+        result.items.forEach((item) => {
+            //map.addObject(new H.map.Marker(item.position));
+            coordinates.push([item.position.lat, item.position.lng]);
+        });
+    }, alert);
+}
 
-    // TODO: map
+function createMap(platform, mapDiv) {
     // Obtain the default map types from the platform object:
     var defaultLayers = platform.createDefaultLayers();
 
     // Instantiate (and display) a map object:
     var map = new H.Map(
-        document.getElementById('map-div'),
+        mapDiv,
         defaultLayers.vector.normal.map,
         {
             zoom: 8,
@@ -57,7 +55,10 @@ async function set_map(cities) {
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
-    console.log(coordinates);
+    return map;
+}
+
+function markCities(coordinates, map) {
     coordinates.forEach(c => {
         // Create an icon, an object holding the latitude and longitude, and a marker:
         let icon = new H.map.Icon("images/marker_map_icon.png", {size: {w: 30, h: 30}}),
@@ -68,27 +69,17 @@ async function set_map(cities) {
         map.addObject(marker);
         //map.setCenter(coords);
     });
+}
 
-    var start = '' + coordinates[0][0] + ',' + coordinates[0][1];
+function convertCoordinatesToWaypoints(coordinates) {
     var waypoints = [];
     coordinates.forEach(c => {
         waypoints.push('' + c[0] + ',' + c[1]);
     });
+    return waypoints;
+}
 
-    // Create the parameters for the routing request:
-    var routingParameters = {
-        'routingMode': 'short',
-        'transportMode': 'car',
-        // The start point of the route:
-        'origin': start,
-        'via': new H.service.Url.MultiValueQueryParameter(waypoints),
-        // The end point of the route:
-        'destination': start,
-        // Include the route shape in the response
-        'return': 'polyline',
-        'routeAttributes': 'summary'
-    };
-
+function markRoute(platform, map, routingParameters) {
     // Define a callback function to process the routing response:
     var onResult = function (result) {
         // ensure that at least one route was found
@@ -129,13 +120,15 @@ async function set_map(cities) {
                 routeLine.addObjects([routeOutline, routeArrows]);
 
                 // Create a marker for the start point:
-                let startMarker = new H.map.Marker(section.departure.place.location);
+                let icon = new H.map.Icon("images/marker_map_icon.png", {size: {w: 30, h: 30}}),
+                    startMarker = new H.map.Marker(section.departure.place.location, {icon: icon});
+                // let startMarker = new H.map.Marker(section.departure.place.location);
 
                 // Create a marker for the end point:
-                let endMarker = new H.map.Marker(section.arrival.place.location);
+                //let endMarker = new H.map.Marker(section.arrival.place.location);
 
                 // Add the route polyline and the two markers to the map:
-                map.addObjects([routeLine]); //, startMarker, endMarker]);
+                map.addObjects([routeLine, startMarker]); //, endMarker]);
                 // console.log(routeLine)
                 // TODO: set map viewpoint to whole route
                 // Set the map's viewport to make the whole route visible:
@@ -156,4 +149,22 @@ async function set_map(cities) {
         function (error) {
             alert(error.message);
         });
+}
+
+function getRoutingParameters(coordinates) {
+    var start = '' + coordinates[0][0] + ',' + coordinates[0][1];
+    var waypoints = convertCoordinatesToWaypoints(coordinates);
+    // Create the parameters for the routing request:
+    return {
+        'routingMode': 'short',
+        'transportMode': 'car',
+        // The start point of the route:
+        'origin': start,
+        'via': new H.service.Url.MultiValueQueryParameter(waypoints),
+        // The end point of the route:
+        'destination': start,
+        // Include the route shape in the response
+        'return': 'polyline',
+        'routeAttributes': 'summary'
+    };
 }
