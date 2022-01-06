@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // console.log(dataJson);
     let participants = [];
     let cities = new Set();
-    dataJson.forEach(d => {
+    dataJson.data.forEach(d => {
         participants.push(d["name"]);
         for(let p in d["preferences"]) {
             cities.add(p);
@@ -23,11 +23,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let tourDiv = document.getElementById("route-text-div");
     let tourPElem = tourDiv.getElementsByTagName("p")[0];
-    tourPElem.innerHTML = "Cosenza";
+    // console.log(dataJson);
+    let startingPoint = getCityName(dataJson["start"]);
+    tourPElem.innerHTML = startingPoint;
     cities.forEach(c => {
-        // TODO: also send starting city
-        tourPElem.innerHTML += " - " + c.substring(0, c.lastIndexOf(" "));
+        tourPElem.innerHTML += " - " + getCityName(c);
     });
-    tourPElem.innerHTML += " - Cosenza";
+    tourPElem.innerHTML += " - " + startingPoint;
+
+    cities = addStartToSet(cities, startingPoint);
+
     set_map(cities);
 });
+
+function addStartToSet(cities, startingPoint) {
+    var citiesArray = Array.from(cities);
+    citiesArray.splice(0, 0, startingPoint);
+    cities = new Set(citiesArray);
+    return cities;
+}
+
+function getCityName(c) {
+    return c.substring(0, c.lastIndexOf(" "));
+}

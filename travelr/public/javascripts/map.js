@@ -11,13 +11,13 @@ async function set_map(cities) {
 }
 
 async function getCitiesCoordinates(platform, cities) {
-    // TODO: add start and end dynamically
-    var coordinates = [[39.298403014978675, 16.258142827309133]]; // TODO: make first of cities list
+    // add start as ending point
+    cities.add(Array.from(cities)[0]);
+    var coordinates = [];
     var service = platform.getSearchService();
     for (const c of cities) {
         await addCityCoordinatesToList(coordinates, service, c);
     }
-    coordinates.push([39.298403014978675, 16.258142827309133]);
     return coordinates;
 }
 

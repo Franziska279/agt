@@ -1,6 +1,7 @@
 function add_tour_data() {
     let data = document.getElementById('participant-list').getElementsByTagName('p');
-    let json = [];
+    let startingPoint = document.getElementById('start').value;
+    let json = {"start": startingPoint, "data": []};
     Array.from(data).forEach(p => {
         let name = p.getElementsByClassName('name')[0].innerHTML;
         let budget = p.getElementsByClassName('budget')[0].innerHTML;
@@ -14,7 +15,7 @@ function add_tour_data() {
             prefMap.set(city, utility);
         });
         let pJson = {"name": name, "budget": budget, "preferences": Object.fromEntries(prefMap)};
-        json.push(pJson);
+        json.data.push(pJson);
     });
     document.getElementById('tourData').value = JSON.stringify(json);
     return true;
