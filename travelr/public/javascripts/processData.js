@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
             cities.add(p); // city = Cosenza;87100
         }
     });
-    // console.log(participants);
-    // console.log(cities);
-    // TODO: calculate result here!
     let resultDiv = document.getElementById("result-participant-div");
     // TODO: costs for each participant is missing
     participants.forEach(p => {

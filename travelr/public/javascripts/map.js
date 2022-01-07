@@ -5,12 +5,20 @@ async function set_map(cities) {
         'apikey': HERE_API_KEY
     });
     var coordinates = await getCitiesCoordinates(platform, cities);
+    var waypointsResult = (await arrangeForShortestPath(coordinates)).results[0];
+
+    // TODO: use distance for algorithm
+    var distance = waypointsResult["distance"] / 1000.0;
+    document.getElementById("distance").innerHTML = distance + "km";
+
+    coordinates = waypointsResult["waypoints"];
     var map = createMap(platform, document.getElementById('map-div'));
     // markCities(coordinates, map); // also done in route itself
     markRoute(platform, map, getRoutingParameters(coordinates));
 }
 
 async function getCitiesCoordinates(platform, cities) {
+    // TODO: change 2d-array to json for better understandability
     // add start as ending point
     cities.add(Array.from(cities)[0]);
     var coordinates = [];
@@ -74,7 +82,7 @@ function markCities(coordinates, map) {
 function convertCoordinatesToWaypoints(coordinates) {
     var waypoints = [];
     coordinates.forEach(c => {
-        waypoints.push('' + c[0] + ',' + c[1]);
+        waypoints.push('' + c.lat + ',' + c.lng);
     });
     return waypoints;
 }
@@ -134,7 +142,6 @@ function markRoute(platform, map, routingParameters) {
                 // Set the map's viewport to make the whole route visible:
                 // map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
                 //console.log(result.routes[0])
-                // TODO: calculate distance by getting distances between each waypoint
             });
         }
     };
@@ -152,8 +159,8 @@ function markRoute(platform, map, routingParameters) {
 }
 
 function getRoutingParameters(coordinates) {
-    var start = '' + coordinates[0][0] + ',' + coordinates[0][1];
-    var waypoints = convertCoordinatesToWaypoints(coordinates);
+    var start = '' + coordinates[0].lat + ',' + coordinates[0].lng;
+    var waypoints = convertCoordinatesToWaypoints(JSON.parse(JSON.stringify(coordinates)).splice(1));
     // Create the parameters for the routing request:
     return {
         'routingMode': 'short',
@@ -167,4 +174,27 @@ function getRoutingParameters(coordinates) {
         'return': 'polyline',
         'routeAttributes': 'summary'
     };
+}
+
+async function arrangeForShortestPath(coordinates) {
+    let waypoints = {};
+    for(let i = 1; i < coordinates.length; i++) {
+        waypoints["destination" + (i + 1)] = `${coordinates[i][0]},${coordinates[i][1]}`;
+    }
+    let url = "https://wse.ls.hereapi.com/2/findsequence.json" +
+        `?apiKey=${HERE_API_KEY}` +
+        `&start=${coordinates[0][0]},${coordinates[0][1]}`;
+    let i = 1;
+    coordinates.forEach(c => {
+        url += `&destination${i}=${c[0]},${c[1]}`;
+        i++;
+    });
+    url += `&end=${coordinates[0][0]},${coordinates[0][1]}` +
+        `&mode=fastest;car;traffic:enabled` +
+        `&departure=now`;
+
+    return await fetch(url, {
+            method: 'GET'})
+        .then(response => { return response.json(); })
+        .catch(err => { console.error(err); });
 }
