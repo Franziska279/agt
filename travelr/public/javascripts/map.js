@@ -63,10 +63,11 @@ function createMap(platform, mapDiv) {
     var map = new H.Map(
         mapDiv,
         defaultLayers.vector.normal.map,
-        {
-            zoom: 8,
-            center: { lat: 38.72807471947513, lng: 16.539936297329433 }
-        });
+        // {
+        //     zoom: 8,
+        //     center: { lat: 38.72807471947513, lng: 16.539936297329433 }
+        // }
+    );
 
     // Create the default UI:
     var ui = H.ui.UI.createDefault(map, defaultLayers);
@@ -139,7 +140,7 @@ function markRoute(platform, map, routingParameters) {
                 // console.log(routeLine)
                 // TODO: set map viewpoint to whole route
                 // Set the map's viewport to make the whole route visible:
-                // map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
+                map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox(), zoom: 6});
                 //console.log(result.routes[0])
             });
         }
