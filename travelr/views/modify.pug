@@ -33,12 +33,12 @@ block content
             h2 Insert a participant:
             form#insert-form
                 label(for='name') Name:!{' '}
-                input(id='name', name='name', placeholder='Name', type='text')
+                input(id='name', name='name', placeholder='Name', type='text', value='Test')
                 label(for='budget') Budget:!{' '}
-                input(id='budget', name='budget', placeholder='Budget (€)', type='text')
+                input(id='budget', name='budget', placeholder='Budget (€)', type='text', value="20€")
                 label(for='preferences') Preferences:!{' '}
                 textarea(id='preferences', name='preferences', placeholder='Preferences (Tropea (89861): 8, etc.)')
-                input(type='submit', value='Insert').small-action
+                input(type='button', value='Insert', onclick='addParticipant()').small-action
         div#list-div
             h2 Active Participants:
             div.scroll-div#participant-list
@@ -71,7 +71,7 @@ block content
                         span.preferences Tropea (89861): 7, Reggio (89135): 5, Scilla (89058): -3
                         span }
                     button.small-action X
-            button.small-action Clear
+            button.small-action(onclick='clearList()') Clear
     br
     form(action='compute', method='POST', onsubmit="return add_tour_data();")
         input(type="hidden", name='fromModify')
