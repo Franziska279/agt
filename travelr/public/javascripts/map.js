@@ -22,8 +22,8 @@ async function getCitiesCoordinates(platform, cities) {
 }
 
 async function addCityCoordinatesToList(coordinates, service, c) {
-    let name = c.substring(0, c.lastIndexOf(" "));
-    let postalCode = c.substring(c.lastIndexOf(" "));
+    let name = c.substring(0, c.lastIndexOf(";"));
+    let postalCode = c.substring(c.lastIndexOf(";"));
     await service.geocode({
         q: postalCode + ", " + name
     }, (result) => {

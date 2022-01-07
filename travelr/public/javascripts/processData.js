@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
     let data = document.getElementById("result-data").innerHTML;
     let dataJson = JSON.parse(data);
-    // console.log(dataJson);
     let participants = [];
     let cities = new Set();
     dataJson.data.forEach(d => {
         participants.push(d["name"]);
         for(let p in d["preferences"]) {
-            cities.add(p);
+            cities.add(p); // city = Cosenza;87100
         }
     });
     // console.log(participants);
@@ -24,14 +23,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let tourDiv = document.getElementById("route-text-div");
     let tourPElem = tourDiv.getElementsByTagName("p")[0];
     // console.log(dataJson);
-    let startingPoint = getCityName(dataJson["start"]);
-    tourPElem.innerHTML = startingPoint;
+    let startingCity = getCityName(dataJson["start"]);
+    tourPElem.innerHTML = startingCity;
     cities.forEach(c => {
         tourPElem.innerHTML += " - " + getCityName(c);
     });
-    tourPElem.innerHTML += " - " + startingPoint;
+    tourPElem.innerHTML += " - " + startingCity;
 
-    cities = addStartToSet(cities, startingPoint);
+    cities = addStartToSet(cities, dataJson["start"]);
 
     set_map(cities);
 });
@@ -44,5 +43,5 @@ function addStartToSet(cities, startingPoint) {
 }
 
 function getCityName(c) {
-    return c.substring(0, c.lastIndexOf(" "));
+    return c.substring(0, c.lastIndexOf(";"));
 }
