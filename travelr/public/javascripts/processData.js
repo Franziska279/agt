@@ -17,16 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
         resultDiv.appendChild(pEl);
     });
 
-    let tourDiv = document.getElementById("route-text-div");
-    let tourPElem = tourDiv.getElementsByTagName("p")[0];
-    // console.log(dataJson);
-    let startingCity = getCityName(dataJson["start"]);
-    tourPElem.innerHTML = startingCity;
-    cities.forEach(c => {
-        tourPElem.innerHTML += " - " + getCityName(c);
-    });
-    tourPElem.innerHTML += " - " + startingCity;
-
     cities = addStartToSet(cities, dataJson["start"]);
 
     set_map(cities);

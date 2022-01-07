@@ -6,21 +6,33 @@ async function set_map(cities) {
     });
     var coordinates = await getCitiesCoordinates(platform, cities);
     var waypointsResult = (await arrangeForShortestPath(coordinates)).results[0];
-
     // TODO: use distance for algorithm
     var distance = waypointsResult["distance"] / 1000.0;
     document.getElementById("distance").innerHTML = distance + "km";
 
     coordinates = waypointsResult["waypoints"];
+    console.log(coordinates);
+
+    // TODO: maybe move this part to another file? It's not part of the
+    //  map itself. Where to put it?
+    let tourDiv = document.getElementById("route-text-div");
+    let tourPElem = tourDiv.getElementsByTagName("p")[0];
+    let startingId = coordinates[0].id;
+    let startingCity = startingId.substring(0, startingId.lastIndexOf("-"));
+    tourPElem.innerHTML = startingCity;
+    for (let idx = 1; idx < coordinates.length-1; idx++) {
+        tourPElem.innerHTML += " - " + coordinates[idx].id;
+    }
+    tourPElem.innerHTML += " - " + startingCity;
+
     var map = createMap(platform, document.getElementById('map-div'));
     // markCities(coordinates, map); // also done in route itself
     markRoute(platform, map, getRoutingParameters(coordinates));
 }
 
 async function getCitiesCoordinates(platform, cities) {
-    // TODO: change 2d-array to json for better understandability
     // add start as ending point
-    cities.add(Array.from(cities)[0]);
+    // cities.add(Array.from(cities)[0]);
     var coordinates = [];
     var service = platform.getSearchService();
     for (const c of cities) {
@@ -30,15 +42,15 @@ async function getCitiesCoordinates(platform, cities) {
 }
 
 async function addCityCoordinatesToList(coordinates, service, c) {
-    let name = c.substring(0, c.lastIndexOf(";"));
-    let postalCode = c.substring(c.lastIndexOf(";"));
+    let name = c.substring(0, c.lastIndexOf(";")).trim();
+    let postalCode = c.substring(c.lastIndexOf(";")).trim();
     await service.geocode({
         q: postalCode + ", " + name
     }, (result) => {
         // Add a marker for each location found
         result.items.forEach((item) => {
             //map.addObject(new H.map.Marker(item.position));
-            coordinates.push([item.position.lat, item.position.lng]);
+            coordinates.push({"name": name, "lat": item.position.lat, "lng": item.position.lng});
         });
     }, alert);
 }
@@ -64,19 +76,6 @@ function createMap(platform, mapDiv) {
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
     return map;
-}
-
-function markCities(coordinates, map) {
-    coordinates.forEach(c => {
-        // Create an icon, an object holding the latitude and longitude, and a marker:
-        let icon = new H.map.Icon("images/marker_map_icon.png", {size: {w: 30, h: 30}}),
-            coords = {lat: c[0], lng: c[1]},
-            marker = new H.map.Marker(coords, {icon: icon});
-
-        // Add the marker to the map and center the map at the location of the marker:
-        map.addObject(marker);
-        //map.setCenter(coords);
-    });
 }
 
 function convertCoordinatesToWaypoints(coordinates) {
@@ -177,19 +176,16 @@ function getRoutingParameters(coordinates) {
 }
 
 async function arrangeForShortestPath(coordinates) {
-    let waypoints = {};
-    for(let i = 1; i < coordinates.length; i++) {
-        waypoints["destination" + (i + 1)] = `${coordinates[i][0]},${coordinates[i][1]}`;
-    }
     let url = "https://wse.ls.hereapi.com/2/findsequence.json" +
         `?apiKey=${HERE_API_KEY}` +
-        `&start=${coordinates[0][0]},${coordinates[0][1]}`;
+        `&start=${coordinates[0].name}-Start;${coordinates[0].lat},${coordinates[0].lng}`;
     let i = 1;
-    coordinates.forEach(c => {
-        url += `&destination${i}=${c[0]},${c[1]}`;
+    for (let idx = 1; idx < coordinates.length; idx++) {
+        let c = coordinates[idx];
+        url += `&destination${i}=${c.name};${c.lat},${c.lng}`;
         i++;
-    });
-    url += `&end=${coordinates[0][0]},${coordinates[0][1]}` +
+    }
+    url += `&end=${coordinates[0].name}-End;${coordinates[0].lat},${coordinates[0].lng}` +
         `&mode=fastest;car;traffic:enabled` +
         `&departure=now`;
 
