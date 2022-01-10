@@ -5,8 +5,7 @@ block content
         img(src='images/Travelr_Logo.png').logo-small
         h1= title
     br
-    p This is the page where you should be able to modify your routing request
-    // TODO: insert stuff and display data (DB -> SQLITE)
+    p Here you can modify your routing request!
     div#grid-container
         div#variable-div
             form#variable-form
@@ -74,6 +73,8 @@ block content
             button.small-action(onclick='clearList()') Clear
     br
     form(action='compute', method='POST', onsubmit="return add_tour_data();")
+        // to call add_tour_data before the form submits to the next page
         input(type="hidden", name='fromModify')
         input(type="hidden", id='tourData', name='tourData')
+        // tourData to gather data in json and send it to next page
         input(type='submit', value='Compute').action

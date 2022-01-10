@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET something to list maybe?. */
 router.get('/', handleRedirect);
 router.post('/', handleRedirect);
 
 function handleRedirect(req, res, next) {
-    if (req.body.fromIndex != null) {
+    if (req.body.fromIndex != null) { // to prevent path traversal
         res.render('modify', { title: 'Travelr' });
     } else {
         res.redirect('../')
