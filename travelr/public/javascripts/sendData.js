@@ -1,4 +1,4 @@
-function add_tour_data() {
+function addTourData() {
     let participantData = document.getElementById('participant-list').getElementsByTagName('p');
     let startingPoint = document.getElementById('start').value;
     let postalCode = document.getElementById('postal_code').value;

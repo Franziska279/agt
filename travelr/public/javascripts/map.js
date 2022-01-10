@@ -1,6 +1,6 @@
 const HERE_API_KEY = 'IbLuSWOk8u4G011cI7N8QM1vIZXHHGbBNBwbZ8VkXpc';
 // document.addEventListener("DOMContentLoaded", function() {
-async function set_map(cities) {
+async function setMap(cities) {
     var platform = new H.service.Platform({
         'apikey': HERE_API_KEY
     });
@@ -11,7 +11,7 @@ async function set_map(cities) {
     document.getElementById("distance").innerHTML = distance + "km";
 
     coordinates = waypointsResult["waypoints"];
-    console.log(coordinates);
+    // console.log(coordinates);
 
     // TODO: maybe move this part to another file? It's not part of the
     //  map itself. Where to put it?

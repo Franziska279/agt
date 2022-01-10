@@ -72,7 +72,7 @@ block content
                     button.small-action X
             button.small-action(onclick='clearList()') Clear
     br
-    form(action='compute', method='POST', onsubmit="return add_tour_data();")
+    form(action='compute', method='POST', onsubmit="return addTourData();")
         // to call add_tour_data before the form submits to the next page
         input(type="hidden", name='fromModify')
         input(type="hidden", id='tourData', name='tourData')
