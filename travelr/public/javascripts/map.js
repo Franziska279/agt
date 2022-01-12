@@ -195,8 +195,9 @@ async function arrangeForShortestPath(coordinates) {
         .catch(err => { console.error(err); });
 }
 
-// async function getDistance(coordinates, otherCoordinates) {
-//     // use shortest path, since other ways to calculate distance would result in other paths taken between the cities
-//     let waypointsResult = await arrangeForShortestPath(coordinates.concat(otherCoordinates)).results[0];
-//     return waypointsResult["distance"] / 1000.0; // in kilometres
-// }
+async function getDistance(coordinates, otherCoordinates) {
+    // coordinates and otherCoordinates should not be the same!
+    // use shortest path, since other ways to calculate distance would result in other paths taken between the cities
+    let waypointsResult = (await arrangeForShortestPath([coordinates, otherCoordinates])).results[0];
+    return waypointsResult["distance"] / 1000.0; // in kilometres
+}

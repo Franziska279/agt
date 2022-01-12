@@ -14,12 +14,10 @@ document.addEventListener("DOMContentLoaded", async function() {
     cities = addStartToArray(Array.from(cities), dataJson["start"]);
 
     let coordinates = await getCitiesCoordinates(platform, cities)
-    console.log(coordinates)
     dataJson["start"] = coordinates[0];
     let tourCities = coordinates;
     tourCities.splice(0, 1); // remove start
     dataJson["cities"] = tourCities;
-    console.log(dataJson)
 
     let resultJson = await getResult(dataJson);
 

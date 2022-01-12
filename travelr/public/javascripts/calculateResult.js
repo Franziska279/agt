@@ -8,14 +8,20 @@ async function getResult(json) {
     let cityCost = json["city_cost"];
     let start = json["start"];
     let participantsData = json["data"];
-    let cities = new Set();
-    participantsData.forEach(d => {
-        for(let p in d["preferences"]) {
-            cities.add(p); // city = Cosenza;87100
-        }
-    });
+    let cities = json["cities"]
 
     // TODO: IMPLEMENT ALGORITHM HERE!
+
+    // let cityArray =  Array.from(cities)
+    // let first = cityArray[0];
+    // console.log(cityArray)
+    // for (let c in cityArray) {
+    //     console.log(c)
+    //     if (c !== "0") {
+    //         console.log(await getDistance(first, cityArray[c]))
+    //         first = cityArray[c]
+    //     }
+    // }
 
     // console.log(resultJson);
     return resultJson;
