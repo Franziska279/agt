@@ -1,17 +1,27 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     let data = document.getElementById("result-data").innerHTML;
     let dataJson = JSON.parse(data);
 
-    let resultJson = getResult(dataJson);
-
     let participants = []; // TODO: once resultJson has values, change to "= resultJson["participants"]
+
     let cities = new Set();
-    dataJson.data.forEach(d => { // TODO: adapt further code to resultJson
+    dataJson.data.forEach(d => {
         participants.push(d["name"]);
         for(let p in d["preferences"]) {
             cities.add(p); // city = Cosenza;87100
         }
     });
+    cities = addStartToArray(Array.from(cities), dataJson["start"]);
+
+    let coordinates = await getCitiesCoordinates(platform, cities)
+    console.log(coordinates)
+    dataJson["start"] = coordinates[0];
+    let tourCities = coordinates;
+    tourCities.splice(0, 1); // remove start
+    dataJson["cities"] = tourCities;
+    console.log(dataJson)
+
+    let resultJson = await getResult(dataJson);
 
     let resultDiv = document.getElementById("result-participant-div");
     participants.forEach(p => {
@@ -20,14 +30,10 @@ document.addEventListener("DOMContentLoaded", function() {
         resultDiv.appendChild(pEl);
     });
 
-    cities = addStartToSet(cities, dataJson["start"]);
-
-    setMap(cities);
+    setMap(coordinates);
 });
 
-function addStartToSet(cities, startingPoint) {
-    var citiesArray = Array.from(cities);
-    citiesArray.splice(0, 0, startingPoint);
-    cities = new Set(citiesArray);
+function addStartToArray(cities, startingPoint) {
+    cities.splice(0, 0, startingPoint);
     return cities;
 }

@@ -1,17 +1,16 @@
 const HERE_API_KEY = 'IbLuSWOk8u4G011cI7N8QM1vIZXHHGbBNBwbZ8VkXpc';
 // document.addEventListener("DOMContentLoaded", function() {
-async function setMap(cities) {
-    var platform = new H.service.Platform({
-        'apikey': HERE_API_KEY
-    });
-    var coordinates = await getCitiesCoordinates(platform, cities);
+
+const platform = new H.service.Platform({
+    'apikey': HERE_API_KEY
+});
+
+async function setMap(coordinates) {
     var waypointsResult = (await arrangeForShortestPath(coordinates)).results[0];
-    // TODO: use distance for algorithm
     var distance = waypointsResult["distance"] / 1000.0;
     document.getElementById("distance").innerHTML = distance + "km";
 
     coordinates = waypointsResult["waypoints"];
-    // console.log(coordinates);
 
     // TODO: maybe move this part to another file? It's not part of the
     //  map itself. Where to put it?
@@ -43,7 +42,7 @@ async function getCitiesCoordinates(platform, cities) {
 
 async function addCityCoordinatesToList(coordinates, service, c) {
     let name = c.substring(0, c.lastIndexOf(";")).trim();
-    let postalCode = c.substring(c.lastIndexOf(";")).trim();
+    let postalCode = c.substring(c.lastIndexOf(";") + 1).trim();
     await service.geocode({
         q: postalCode + ", " + name
     }, (result) => {
@@ -195,3 +194,9 @@ async function arrangeForShortestPath(coordinates) {
         .then(response => { return response.json(); })
         .catch(err => { console.error(err); });
 }
+
+// async function getDistance(coordinates, otherCoordinates) {
+//     // use shortest path, since other ways to calculate distance would result in other paths taken between the cities
+//     let waypointsResult = await arrangeForShortestPath(coordinates.concat(otherCoordinates)).results[0];
+//     return waypointsResult["distance"] / 1000.0; // in kilometres
+// }

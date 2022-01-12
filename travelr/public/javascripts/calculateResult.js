@@ -1,4 +1,4 @@
-function getResult(json) {
+async function getResult(json) {
     let resultJson = {};
     let makKm = json["max_km"];
     let k = json["k"];
@@ -17,6 +17,6 @@ function getResult(json) {
 
     // TODO: IMPLEMENT ALGORITHM HERE!
 
-    console.log(resultJson);
+    // console.log(resultJson);
     return resultJson;
 }
