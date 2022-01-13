@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         resultDiv.appendChild(pEl);
     });
 
-    setMap(coordinates);
+    //setMap(coordinates);
 });
 
 function addStartToArray(cities, startingPoint) {
