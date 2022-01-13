@@ -8,109 +8,105 @@ async function getResult(json) {
     let cityCost = json["city_cost"];
     let start = json["start"];
     let participantsData = json["data"];
-    console.log(json)
-
-    // let cities = new Set();
-    // participantsData.forEach(d => {
-    //     for(let p in d["preferences"]) {
-    //         cities.add(p); // city = Cosenza;87100
-    //     }
-    // });
-    let cities = json["cities"]
-
-
+    let cities = json["cities"];
     let participants = new Set();
     participantsData.forEach(d => {
         participants.add(d["name"]); // participant = Franzi;
 
     });
 
+    // LOGGING
+    console.log(json)
+
     // TODO: IMPLEMENT ALGORITHM HERE!
 
-    // let cityArray =  Array.from(cities)
-    // let first = cityArray[0];
-    // console.log(cityArray)
-    // for (let c in cityArray) {
-    //     console.log(c)
-    //     if (c !== "0") {
-    //         console.log(await getDistance(first, cityArray[c]))
-    //         first = cityArray[c]
-    //     }
-    // }
-
-    // console.log(resultJson);
     // Compute Combinations
     participants_combination = getCombinations(Array.from(participantsData), k); // Arrays der Combinationen in diesem Set
     cities_combination = getCombinations(Array.from(cities), Object.keys(cities).length); // Arrays der Combinationen in diesem Set
 
-    // Check with logging
- /*   console.log(participants)
+    // LOGGING
+ /* console.log(participants)
     console.log(cities)
     console.log(participants_combination)
-    console.log(cities_combination)*/
+    console.log(cities_combination)
+    */
 
     let costs = [];
     let best_tour = [];
 
-    function calculateTourCosts(element, cityCost, fixedCost) {
 
-       // console.log(element) // TODO: Get the coordinates of elements and compute the shortest path
-        return undefined;
-    }
 
     // First For-Loop
     for(let cities_idx in cities_combination){
         costs[cities_idx] =  calculateTourCosts(cities_combination[cities_idx], cityCost, fixedCost);
     }
 
-    // Calculate Utilities
-    function calculateUtilities(player_combination_idx, city_combination_idx) {
-        let player_combi = participants_combination[player_combination_idx]["values"]
-        let city_combi = cities_combination[city_combination_idx]["values"]
-
-        let utility = 0;
-        for (let participant_idx in player_combi) {
-            // Für einen Spliele z.B. Franzi
-
-            let values = player_combi[participant_idx]["preferences"];
-
-            //console.log(values)
-            for (let cities_idx in city_combi) {
-
-                // Jede Stadt der Combination z.B. Tropea, Scilla , ...
-                let city = city_combi[cities_idx]["name"];
-                //console.log(city)
-                for (let p in values) {
-                    var cityname = p.substring(0, p.indexOf(";"));
-                    if (city.includes(cityname)) {
-                        utility += parseInt(values[p])
-                    }
-                }
-            }
-        }
-
-        return utility;
-    }
-
+    resultJson["elements"] = [];
+    // Second For-Loop: Calculate Utilities and ...
     for(let participant_idx in participants_combination){
 
         best_tour[participant_idx] = [null,0];
 
-        let group_utility = [];
-
         for(let cities_idx in cities_combination){
+            let results = calculateUtilities(participant_idx, cities_idx)
 
-            group_utility[cities_idx] = calculateUtilities(participant_idx, cities_idx)
-
-            //console.log(utility)
+            resultJson["elements"].push({"participants": participants_combination[participant_idx] ,
+                "cities": cities_combination[cities_idx],
+                "utility": results.utility,
+                "budget": results.max_price});
         }
-        //group_utility.sort();
-        console.log(group_utility)
+
     }
 
-    //console.log(best_tour)
-    //console.log(resultJson);
+    // sort by utility
+    resultJson["elements"].sort(function (a, b) {
+        return a.utility - b.utility;
+    });
+
+    console.log(resultJson);
     return resultJson;
+}
+
+
+// Calculate Utilities
+function calculateUtilities(player_combination_idx, city_combination_idx) {
+    let player_combi = participants_combination[player_combination_idx]["values"]
+    let city_combi = cities_combination[city_combination_idx]["values"]
+
+    let utility = 0;
+    let max_price = 0;
+    for (let participant_idx in player_combi) {
+        // Für einen Spliele z.B. Franzi
+
+        // maximum budget for the group
+        var budget = player_combi[participant_idx]["budget"];
+        max_price += parseInt(budget.substring(0, budget.indexOf("€")));
+
+
+        let values = player_combi[participant_idx]["preferences"];
+
+        //console.log(values)
+        for (let cities_idx in city_combi) {
+
+            // Jede Stadt der Combination z.B. Tropea, Scilla , ...
+            let city = city_combi[cities_idx]["name"];
+
+            for (let p in values) {
+                var cityname = p.substring(0, p.indexOf(";"));
+                if (city.includes(cityname)) {
+                    utility += parseInt(values[p])
+                }
+            }
+        }
+    }
+
+    return {utility, max_price};
+}
+
+function calculateTourCosts(element, cityCost, fixedCost) {
+
+    // console.log(element) // TODO: Get the coordinates of elements and compute the shortest path
+    return undefined;
 }
 
 
