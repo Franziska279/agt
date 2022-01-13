@@ -38,7 +38,10 @@ async function getResult(json) {
 
     // First For-Loop
     for(let cities_idx in cities_combination){
+
         costs[cities_idx] =  calculateTourCosts(cities_combination[cities_idx], cityCost, fixedCost);
+
+        console.log(cities_combination[cities_idx])
     }
 
     resultJson["elements"] = [];
@@ -50,10 +53,14 @@ async function getResult(json) {
         for(let cities_idx in cities_combination){
             let results = calculateUtilities(participant_idx, cities_idx)
 
+
             resultJson["elements"].push({"participants": participants_combination[participant_idx] ,
                 "cities": cities_combination[cities_idx],
                 "utility": results.utility,
                 "budget": results.max_price});
+
+            // TODO: Compare if max_price even ok, if not remove from resultJson
+
         }
 
     }
@@ -103,9 +110,13 @@ function calculateUtilities(player_combination_idx, city_combination_idx) {
     return {utility, max_price};
 }
 
-function calculateTourCosts(element, cityCost, fixedCost) {
+function calculateTourCosts(combination, cityCost, fixedCost) {
 
-    // console.log(element) // TODO: Get the coordinates of elements and compute the shortest path
+    // TODO: Get the coordinates of elements and compute the shortest path
+    // If combination just one element z.B Tropean -> calculate distance between Tropea and start ( function already exists)
+    // If more than one element -> function to calculate shortest path ( function exists - usage example in map.js)
+
+
     return undefined;
 }
 
