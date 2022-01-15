@@ -6,6 +6,7 @@ const platform = new H.service.Platform({
 });
 
 async function setMap(coordinates) {
+
     var waypointsResult = (await arrangeForShortestPath(coordinates)).results[0];
     var distance = waypointsResult["distance"] / 1000.0;
     document.getElementById("distance").innerHTML = distance + "km";
@@ -188,9 +189,12 @@ async function arrangeForShortestPath(coordinates) {
     url += `&end=${coordinates[0].name}-End;${coordinates[0].lat},${coordinates[0].lng}` +
         `&mode=fastest;car;traffic:enabled` +
         `&departure=now`;
-
     return await fetch(url, {
-            method: 'GET'})
+        // headers: {
+        //     'Access-Control-Allow-Origin' : 'no-class'
+        // },
+        // mode: 'no-cors', // no-cors
+        method: 'GET'})
         .then(response => { return response.json(); })
         .catch(err => { console.error(err); });
 }
