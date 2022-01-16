@@ -9,7 +9,7 @@ async function getResult(json) {
     let cityCost = json["city_cost"];
     let start = json["start"];
     let participantsData = json["data"];
-    let cost = 400;
+    let cost = 390;
     let cities = json["cities"];
     let participants = new Set();
     participantsData.forEach(d => {
@@ -113,16 +113,30 @@ async function getResult(json) {
             }
 
         }
-
-        sorted_city_combinations[idx]["affordable"] =  isAffordable(sorted_city_combinations[idx]["participants"]["values"])
-        possibleResults["elements"] = sorted_city_combinations;
-
-
-
-
-
+        // for (let player in sorted_city_combinations[idx]["participants"]["values"]) {
+        //
+        //     if(sorted_city_combinations[idx]["participants"]["values"][player]["affordable"] === false){
+        //         sorted_city_combinations[idx]["affordable"] = false
+        //     }else{
+        //         sorted_city_combinations[idx]["affordable"] = true
+        //
+        //     }
+        //
+        //
+        //
+        // }
+        //possibleResults["elements"] = sorted_city_combinations;
+        //sorted_city_combinations[idx]["affordable"] =  isAffordable(sorted_city_combinations[idx]["participants"]["values"])
 
     }
+
+
+
+    for (let index in sorted_city_combinations) {
+        sorted_city_combinations[index]["affordable"] =  isAffordable(sorted_city_combinations[index]["participants"]["values"])
+        possibleResults["elements"] = sorted_city_combinations;
+    }
+
 
 
     console.log(possibleResults)
