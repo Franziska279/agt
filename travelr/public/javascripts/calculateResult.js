@@ -1,6 +1,7 @@
 async function getResult(json) {
     let resultJson = {};
     let possibleResults = {};
+    let zwischenErgebnis = {};
     let makKm = json["max_km"];
     let k = json["k"];
     let rangeStart = json["range_start"];
@@ -18,7 +19,7 @@ async function getResult(json) {
     });
 
     // LOGGING
-    console.log(json)
+    //console.log(json)
     // TODO: IMPLEMENT ALGORITHM HERE!
 
     // Compute Combinations
@@ -33,48 +34,43 @@ async function getResult(json) {
     // First For-Loop
     for (let cities_idx in cities_combination) {
 
-        if(cities_idx <= cities_combination.length){
+        if (cities_idx <= cities_combination.length) {
             let newArray = [start].concat(cities_combination[cities_idx]["values"])
-            console.log(newArray)
+
             costs[cities_idx] = calculateTourCosts(newArray, cities_combination[cities_idx]["name"] );
         }
-
-        //costs[cities_idx] = calculateTourCosts(newArray, cities_combination[cities_idx]["name"] );
     }
 
     resultJson["elements"] = [];
     // Second For-Loop: Calculate Utilities and ...
     for (let participant_idx in participants_combination) {
         // Not one Person alone allowed
-        if (participants_combination[participant_idx]["values"].length !== 1) {
+        for (let cities_idx in cities_combination) {
 
-            //best_tour[participant_idx] = [null, 0];
+            let results = calculateUtilities(participant_idx, cities_idx)
 
-            for (let cities_idx in cities_combination) {
+            resultJson["elements"].push({
+                "participants": participants_combination[participant_idx],
+                "cities": cities_combination[cities_idx],
+                "utility": results.utility,
+                "budget": results.max_price,
+                "affordable": false
+            });
 
-                let results = calculateUtilities(participant_idx, cities_idx)
-
-                resultJson["elements"].push({
-                    "participants": participants_combination[participant_idx],
-                    "cities": cities_combination[cities_idx],
-                    "utility": results.utility,
-                    "budget": results.max_price,
-                    "affordable" : false
-                });
-
-                // sort by utility
-                resultJson["elements"].sort(function (a, b) {
-                    return a.utility - b.utility;
-                });
-            }
+            // sort by utility
+            resultJson["elements"].sort(function (a, b) {
+                return a.utility - b.utility;
+            });
         }
 
     }
 
     let sorted_city_combinations = resultJson["elements"];
-
+    zwischenErgebnis["elements"] = [];
+    let zwischenErgebnis_Array = zwischenErgebnis["elements"];
 
     // For all sorted combinations
+
     for (let idx in sorted_city_combinations) {
 
         let player_combination_name = sorted_city_combinations[idx]["participants"]["name"];
@@ -103,51 +99,39 @@ async function getResult(json) {
             //let tour_costs = resultJson.filter(x => x.cities.name === city_combination );
             //console.log("Kosten = " + tour_costs)
             costs[player] = (payments[player] / percentage) * cost;
-            sorted_city_combinations[idx]["participants"]["values"][player].payment =  costs[player]
-
+            sorted_city_combinations[idx]["participants"]["values"][player].payment = costs[player]
+            //console.log("Die letzte Kombination ist affordable : " + sorted_city_combinations[idx]["participants"]["values"][player - 1])
             if (max_price < sorted_city_combinations[idx]["participants"]["values"][player].payment) {
                 sorted_city_combinations[idx]["participants"]["values"][player].affordable = false
                 //break
-            }else{
+            } else {
                 sorted_city_combinations[idx]["participants"]["values"][player].affordable = true
             }
 
         }
-        // for (let player in sorted_city_combinations[idx]["participants"]["values"]) {
-        //
-        //     if(sorted_city_combinations[idx]["participants"]["values"][player]["affordable"] === false){
-        //         sorted_city_combinations[idx]["affordable"] = false
-        //     }else{
-        //         sorted_city_combinations[idx]["affordable"] = true
-        //
-        //     }
-        //
-        //
-        //
-        // }
-        //possibleResults["elements"] = sorted_city_combinations;
-        //sorted_city_combinations[idx]["affordable"] =  isAffordable(sorted_city_combinations[idx]["participants"]["values"])
 
     }
 
 
 
     for (let index in sorted_city_combinations) {
-        sorted_city_combinations[index]["affordable"] =  isAffordable(sorted_city_combinations[index]["participants"]["values"])
-        possibleResults["elements"] = sorted_city_combinations;
+        sorted_city_combinations[index]["affordable"] = isAffordable(sorted_city_combinations[index]["participants"]["values"])
     }
 
-
-
+    sorted_city_combinations = sorted_city_combinations.filter(x => x.affordable === true);
+    possibleResults["elements"] = sorted_city_combinations;
+    possibleResults["elements"].sort(function (a, b) {
+        return b.utility - a.utility;
+    });
     console.log(possibleResults)
-    console.log(resultJson);
-    return resultJson;
+    console.log( possibleResults["elements"][0]);
+    return possibleResults["elements"][0];
 }
 
 function isAffordable(players) {
     let affordable = true
-    for (let player in players){
-        if(players[player]["affordable"] === false){
+    for (let player in players) {
+        if (players[player]["affordable"] === false) {
             affordable = false
         }
     }
@@ -265,15 +249,15 @@ function getBudgetOfPlayer(participants_combination, participants_combination_id
 async function calculateTourCosts(combination, name) {
 
     // TODO: Get the coordinates of elements and compute the shortest path
-    // If combination just one element z.B Tropean -> calculate distance between Tropea and start ( function already exists)
+    // If combination just one element z.B Tropea -> calculate distance between Tropea and start ( function already exists)
     // If more than one element -> function to calculate shortest path ( function exists - usage example in map.js)
 
     let waypointsResult = (await arrangeForShortestPath(combination)).results[0];
-    setTimeout(() => {  console.log(); }, 200);
+    //setTimeout(() => {console.log();}, 200);
     let distance = waypointsResult["distance"] / 1000.0;
     //document.getElementById("distance").innerHTML = distance + "km";
     console.log(name + " = " + distance + " km")
-    return  distance;
+    return distance;
 }
 
 // Function to generate all combinations of cities or participants
