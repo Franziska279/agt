@@ -37,7 +37,7 @@ async function getResult(json) {
         if (cities_idx <= cities_combination.length) {
             let newArray = [start].concat(cities_combination[cities_idx]["values"])
 
-            costs[cities_idx] = calculateTourCosts(newArray, cities_combination[cities_idx]["name"] );
+            costs[cities_idx] = await calculateTourCosts(newArray, cities_combination[cities_idx]["name"] );
         }
     }
 

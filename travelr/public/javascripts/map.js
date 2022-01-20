@@ -176,7 +176,7 @@ function getRoutingParameters(coordinates) {
     };
 }
 
-async function arrangeForShortestPath(coordinates) {
+async function arrangeForShortestPath(coordinates, max_retries= 5) {
     let url = "https://wse.ls.hereapi.com/2/findsequence.json" +
         `?apiKey=${HERE_API_KEY}` +
         `&start=${coordinates[0].name}-Start;${coordinates[0].lat},${coordinates[0].lng}`;
@@ -190,13 +190,18 @@ async function arrangeForShortestPath(coordinates) {
         `&mode=fastest;car;traffic:enabled` +
         `&departure=now`;
     return await fetch(url, {
-        // headers: {
-        //     'Access-Control-Allow-Origin' : 'no-class'
-        // },
-        // mode: 'no-cors', // no-cors
+        headers: {},
         method: 'GET'})
         .then(response => { return response.json(); })
-        .catch(err => { console.error(err); });
+        .catch(err => {
+            console.error(err);
+            // workaround
+            if (err.stack.includes("TypeError") || err.stack.includes("Failed to fetch")) {
+                // some weird CORS error we can't resolve
+                if (max_retries > 0) {
+                    return arrangeForShortestPath(coordinates, max_retries - 1);
+                }
+            }});
 }
 
 async function getDistance(coordinates, otherCoordinates) {
