@@ -6,24 +6,6 @@ const platform = new H.service.Platform({
 });
 
 async function setMap(coordinates) {
-    var waypointsResult = (await arrangeForShortestPath(coordinates)).results[0];
-    var distance = waypointsResult["distance"] / 1000.0;
-    document.getElementById("distance").innerHTML = distance + "km";
-
-    coordinates = waypointsResult["waypoints"];
-
-    // TODO: maybe move this part to another file? It's not part of the
-    //  map itself. Where to put it?
-    let tourDiv = document.getElementById("route-text-div");
-    let tourPElem = tourDiv.getElementsByTagName("p")[0];
-    let startingId = coordinates[0].id;
-    let startingCity = startingId.substring(0, startingId.lastIndexOf("-"));
-    tourPElem.innerHTML = startingCity;
-    for (let idx = 1; idx < coordinates.length-1; idx++) {
-        tourPElem.innerHTML += " - " + coordinates[idx].id;
-    }
-    tourPElem.innerHTML += " - " + startingCity;
-
     var map = createMap(platform, document.getElementById('map-div'));
     // markCities(coordinates, map); // also done in route itself
     markRoute(platform, map, getRoutingParameters(coordinates));
@@ -175,7 +157,7 @@ function getRoutingParameters(coordinates) {
     };
 }
 
-async function arrangeForShortestPath(coordinates) {
+async function arrangeForShortestPath(coordinates, max_retries= 5) {
     let url = "https://wse.ls.hereapi.com/2/findsequence.json" +
         `?apiKey=${HERE_API_KEY}` +
         `&start=${coordinates[0].name}-Start;${coordinates[0].lat},${coordinates[0].lng}`;
@@ -188,16 +170,17 @@ async function arrangeForShortestPath(coordinates) {
     url += `&end=${coordinates[0].name}-End;${coordinates[0].lat},${coordinates[0].lng}` +
         `&mode=fastest;car;traffic:enabled` +
         `&departure=now`;
-
     return await fetch(url, {
-            method: 'GET'})
+        headers: {},
+        method: 'GET'})
         .then(response => { return response.json(); })
-        .catch(err => { console.error(err); });
-}
-
-async function getDistance(coordinates, otherCoordinates) {
-    // coordinates and otherCoordinates should not be the same!
-    // use shortest path, since other ways to calculate distance would result in other paths taken between the cities
-    let waypointsResult = (await arrangeForShortestPath([coordinates, otherCoordinates])).results[0];
-    return waypointsResult["distance"] / 1000.0; // in kilometres
+        .catch(err => {
+            console.error(err);
+            // workaround
+            if (err.stack.includes("TypeError") || err.stack.includes("Failed to fetch")) {
+                // some weird CORS error we can't resolve
+                if (max_retries > 0) {
+                    return arrangeForShortestPath(coordinates, max_retries - 1);
+                }
+            }});
 }
