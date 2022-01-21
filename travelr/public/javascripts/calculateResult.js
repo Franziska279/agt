@@ -1,7 +1,7 @@
 async function getResult(json) {
     let resultJson = {};
     let possibleResults = {};
-    let makKm = json["max_km"];
+    let makKm = json["max_km"]; // TODO: has to be incorporated!
     let k = json["k"];
     let rangeStart = json["range_start"];
     let rangeEnd = json["range_end"];
@@ -16,16 +16,11 @@ async function getResult(json) {
 
     });
 
-    // LOGGING
-    console.log(json)
-    // TODO: IMPLEMENT ALGORITHM HERE!
-
     // Compute Combinations
     participants_combination = getCombinations(Array.from(participantsData), k); // Arrays der Combinationen in diesem Set
     cities_combination = getCombinations(Array.from(cities), Object.keys(cities).length); // Arrays der Combinationen in diesem Set
 
     let costs = [];
-    let best_tour = [];
     let lambda = 2;
     possibleResults["elements"] = [];
 
@@ -35,13 +30,13 @@ async function getResult(json) {
         if (cities_idx <= cities_combination.length) {
             let newArray = [start].concat(cities_combination[cities_idx]["values"])
 
-            let num = (await calculateTourCosts(newArray, cities_combination[cities_idx]["name"] ) * cityCost);
-            costs[cities_idx] = (Math.round(num * 100) / 100).toFixed(2);
+            let distance = await getRouteDistance(newArray);
+            cities_combination[cities_idx]["distance"] = distance;
+            let routeCost = distance * cityCost;
+            costs[cities_idx] = (Math.round(routeCost * 100) / 100).toFixed(2);
 
         }
     }
-
-    console.log("Cieties Cost = " + costs)
 
     resultJson["elements"] = [];
     // Second For-Loop: Calculate Utilities and ...
@@ -54,9 +49,10 @@ async function getResult(json) {
             resultJson["elements"].push({
                 "participants": participants_combination[participant_idx],
                 "cities": cities_combination[cities_idx],
+                "distance": cities_combination[cities_idx].distance,
                 "utility": results.utility,
                 "budget": results.max_price,
-                "tour_cost": costs[cities_idx],
+                "tour_cost": parseFloat(costs[cities_idx]),
                 "affordable": false
             });
 
@@ -71,12 +67,8 @@ async function getResult(json) {
     let sorted_city_combinations = resultJson["elements"];
 
     // For all sorted combinations
-
-    let dummyJson = [];
-
     for (let idx in sorted_city_combinations) {
 
-        //console.log("Index = " + idx)
         let player_combination_name = sorted_city_combinations[idx]["participants"]["name"];
         let city_combination = sorted_city_combinations[idx]["cities"]["name"];
         let percentage = 0;
@@ -84,14 +76,12 @@ async function getResult(json) {
         // For all players in the player-combination calculate Grooves
         for (let player in sorted_city_combinations[idx]["participants"]["values"]) {
 
-            //console.log("Player Index = " + player)
             let current_player_name = sorted_city_combinations[idx]["participants"]["values"][player]["name"];
 
             let result = calculateGrooves(current_player_name, player_combination_name, city_combination,
                 sorted_city_combinations, lambda);
 
             //Payment per Player also player 1 : 22 , player 2: 21 -> der echte Preis muss außerhalb berechnet werden
-
             sorted_city_combinations[idx]["participants"]["values"][player].groves = result
             percentage += result;
         }
@@ -115,12 +105,7 @@ async function getResult(json) {
                 player_cost = (groves_value / percentage) * cost;
             }
             playerJson.payment = player_cost;
-
-            if (max_price < player_cost) {
-                playerJson.affordable = false
-            } else {
-                playerJson.affordable = true
-            }
+            playerJson.affordable = max_price >= player_cost;
 
             sorted_city_combinations[idx]["participants"]["values"][player] = JSON.parse(JSON.stringify(playerJson)); // TODO: extract to function (jsonCopy, or sth.)
         }
@@ -131,15 +116,15 @@ async function getResult(json) {
         sorted_city_combinations[index]["affordable"] = isAffordable(sorted_city_combinations[index]["participants"]["values"])
     }
 
-    console.log(sorted_city_combinations)
+    // console.log(sorted_city_combinations)
 
     sorted_city_combinations = sorted_city_combinations.filter(x => x.affordable === true);
     possibleResults["elements"] = sorted_city_combinations;
     possibleResults["elements"].sort(function (a, b) {
         return b.utility - a.utility;
     });
-    console.log(possibleResults)
-    console.log( possibleResults["elements"][0]);
+    // console.log(possibleResults)
+    console.log(possibleResults["elements"][0]);
     return possibleResults["elements"][0];
 }
 
@@ -151,22 +136,6 @@ function isAffordable(players) {
         }
     }
     return affordable
-}
-
-function calculatePaymentForPlayerCombination(paymentsArray, percentage) {
-
-    let result = [];
-    paymentsArray.forEach(function (item, index) {
-        console.log(item, index);
-    });
-    for (let i = 0; i < paymentsArray.length; i++) {
-        console.log(paymentsArray[i]);
-        result[i] = paymentsArray[i] / percentage;
-        console.log("Player Combi  finalPaymentPercentage = " + result[i])
-        //Do something
-    }
-
-    return result;
 }
 
 function calculateGrooves(current_player_name, player_combination_name, city_combination, sorted_city_combinations, lambda) {
@@ -202,20 +171,16 @@ function calculateUtilityWithoutCurrentPlayerAndAnotherRoute(currentPlayer, play
     }else{
         utility.push(1)
     }
-    let max =  Math.max(...utility);
-
-    return max;
+    return Math.max(...utility);
 }
 
 function calculateUtilityWithoutCurrentPlayer(currentPlayer, playerCombi, cityCombi, sorted_city_combinations) {
 
-
     let otherplayers = playerCombi.replace(currentPlayer, '');
     let city_combi = sorted_city_combinations.filter(x => x.cities.name === cityCombi && x.participants.name === otherplayers)[0];
 
-
     let utility = 0;
-    if (city_combi != undefined) {
+    if (city_combi !== undefined) {
         utility = JSON.parse(city_combi.utility);
     } else {
         utility = 0;
@@ -238,10 +203,8 @@ function calculateUtilities(player_combination_idx, city_combination_idx) {
         var budget = player_combi[participant_idx]["budget"];
         max_price += parseInt(budget.substring(0, budget.indexOf("€")));
 
-
         let values = player_combi[participant_idx]["preferences"];
 
-        //console.log(values)
         for (let cities_idx in city_combi) {
 
             // Jede Stadt der Combination z.B. Tropea, Scilla , ...
@@ -259,36 +222,19 @@ function calculateUtilities(player_combination_idx, city_combination_idx) {
     return {utility, max_price};
 }
 
-function getBudgetOfPlayer(participants_combination, participants_combination_idx, participant_idx) {
-
-    return participants_combination[participants_combination_idx]["values"][participant_idx]["budget"];
-
-}
-
-async function calculateTourCosts(combination, name) {
-
-    // TODO: Get the coordinates of elements and compute the shortest path
-    // If combination just one element z.B Tropea -> calculate distance between Tropea and start ( function already exists)
-    // If more than one element -> function to calculate shortest path ( function exists - usage example in map.js)
-
+async function getRouteDistance(combination) {
     let waypointsResult = (await arrangeForShortestPath(combination)).results[0];
-    //setTimeout(() => {console.log();}, 200);
-    let distance = waypointsResult["distance"] / 1000.0;
-    //document.getElementById("distance").innerHTML = distance + "km";
-    //console.log(name + " = " + distance + " km")
-    return distance;
+    return waypointsResult["distance"] / 1000.0;
 }
 
 // Function to generate all combinations of cities or participants
 function getCombinations(valuesArray, k) {
     var json = [];
-    var elements = [];
     var slent = Math.pow(2, valuesArray.length);
 
     for (var i = 0; i < slent; i++) {
         var temp = [];
         var combination = {};
-
 
         for (var j = 0; j < valuesArray.length; j++) {
             if ((i & Math.pow(2, j))) {
@@ -303,13 +249,8 @@ function getCombinations(valuesArray, k) {
             combination["values"] = temp;
 
             json.push(combination);
-            //elements.push(temp);
-
         }
     }
 
-    //console.log(elements.join("\n"));
-
-    console.log(json)
     return json;
 }
