@@ -6,7 +6,7 @@ function addTourData() {
     let k = document.getElementById('k').value;
     let range = document.getElementById('range').value;
     let fixedCost = document.getElementById('fixed_cost').value;
-    let cityCost = document.getElementById('fixed_cost').value;
+    let cityCost = document.getElementById('city_cost').value;
 
     let json = {"start": startingPoint + ";" + postalCode, "data": []};
 
