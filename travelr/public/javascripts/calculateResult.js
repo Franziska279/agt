@@ -1,6 +1,5 @@
 async function getResult(json) {
     let resultJson = {};
-    let possibleResults = {};
     let makKm = json["max_km"]; // TODO: has to be incorporated!
     let k = json["k"];
     let rangeStart = json["range_start"];
@@ -8,124 +7,118 @@ async function getResult(json) {
     let fixedCost = json["fixed_cost"];
     let cityCost = json["city_cost"];
     let start = json["start"];
-    let participantsData = json["data"];
+    let playerData = json["data"];
     let cities = json["cities"];
-    let participants = new Set();
-    participantsData.forEach(d => {
-        participants.add(d["name"]); // participant = Franzi;
-
+    let players = new Set();
+    playerData.forEach(d => {
+        players.add(d["name"]);
     });
+
+    console.log("Finding best route for", Array.from(players).join(", "), "and cities", cities)
 
     // Compute Combinations
-    participants_combination = getCombinations(Array.from(participantsData), k); // Arrays der Combinationen in diesem Set
-    cities_combination = getCombinations(Array.from(cities), Object.keys(cities).length); // Arrays der Combinationen in diesem Set
+    let playerCombinations = getCombinations(Array.from(playerData), k);
+    console.log("Player combinations:", playerCombinations)
+    let cityCombinations = getCombinations(Array.from(cities), Object.keys(cities).length);
+    console.log("City combinations:", cityCombinations)
 
-    let costs = [];
-    let lambda = 2;
-    possibleResults["elements"] = [];
-
-    // First For-Loop
-    for (let cities_idx in cities_combination) {
-
-        if (cities_idx <= cities_combination.length) {
-            let newArray = [start].concat(cities_combination[cities_idx]["values"])
-
-            let distance = await getRouteDistance(newArray);
-            cities_combination[cities_idx]["distance"] = distance;
-            let routeCost = distance * cityCost;
-            costs[cities_idx] = (Math.round(routeCost * 100) / 100).toFixed(2);
-
-        }
+    // Calculate costs for each participant
+    console.log("Computing costs...")
+    for (let idx in cityCombinations) {
+        let citiesCombinationsWithStart = [start].concat(cityCombinations[idx]["values"])
+        let distance = await getRouteDistance(citiesCombinationsWithStart);
+        cityCombinations[idx]["distance"] = distance;
+        let routeCost = (distance * cityCost) + fixedCost;
+        cityCombinations[idx]["cost"] = (Math.round(routeCost * 100) / 100).toFixed(2);
+        console.log("Cost for", cityCombinations[idx].name, ":", cityCombinations[idx].cost)
     }
+
+    console.log(cityCombinations)
 
     resultJson["elements"] = [];
-    // Second For-Loop: Calculate Utilities and ...
-    for (let participant_idx in participants_combination) {
-        // Not one Person alone allowed
-        for (let cities_idx in cities_combination) {
+    console.log("Calculating utilities...")
+    // Calculate Utilities
+    for (let participant_idx in playerCombinations) {
+        for (let cities_idx in cityCombinations) {
 
-            let results = calculateUtilities(participant_idx, cities_idx)
+            let results = calculateUtilities(
+                playerCombinations[participant_idx].values,
+                cityCombinations[cities_idx].values)
+
+            console.log(playerCombinations[participant_idx].name, "for", cityCombinations[cities_idx].name, ":", results.utility)
 
             resultJson["elements"].push({
-                "participants": participants_combination[participant_idx],
-                "cities": cities_combination[cities_idx],
-                "distance": cities_combination[cities_idx].distance,
+                "participants": playerCombinations[participant_idx],
+                "cities": cityCombinations[cities_idx],
+                "distance": cityCombinations[cities_idx].distance,
                 "utility": results.utility,
-                "budget": results.max_price,
-                "tour_cost": parseFloat(costs[cities_idx]),
+                "budget": results.maxPrice,
+                "tour_cost": parseFloat(cityCombinations[cities_idx].cost),
                 "affordable": false
             });
-
-            // sort by utility
-            resultJson["elements"].sort(function (a, b) {
-                return a.utility - b.utility;
-            });
         }
-
     }
 
-    let sorted_city_combinations = resultJson["elements"];
+    let cityCombinationsWithUtility = resultJson["elements"];
 
-    // For all sorted combinations
-    for (let idx in sorted_city_combinations) {
+    console.log(cityCombinationsWithUtility.sort((a, b) => b.utility - a.utility))
 
-        let player_combination_name = sorted_city_combinations[idx]["participants"]["name"];
-        let city_combination = sorted_city_combinations[idx]["cities"]["name"];
-        let percentage = 0;
+    // Calculate Grooves - payment
+    const lambda = 2;
+    console.log("Calculate Grooves with lambda", lambda)
+    for (let idx in cityCombinationsWithUtility) {
+        let playerCombinationName = cityCombinationsWithUtility[idx]["participants"]["name"];
+        let cityCombinationName = cityCombinationsWithUtility[idx]["cities"]["name"];
+        let maxGrooves = 0;
 
-        // For all players in the player-combination calculate Grooves
-        for (let player in sorted_city_combinations[idx]["participants"]["values"]) {
+        // For all players in the city-combination
+        for (let player in cityCombinationsWithUtility[idx]["participants"]["values"]) {
+            let currentPlayerName = cityCombinationsWithUtility[idx]["participants"]["values"][player]["name"];
+            let result = calculateGrooves(
+                currentPlayerName, playerCombinationName, cityCombinationName, cityCombinationsWithUtility, lambda);
 
-            let current_player_name = sorted_city_combinations[idx]["participants"]["values"][player]["name"];
-
-            let result = calculateGrooves(current_player_name, player_combination_name, city_combination,
-                sorted_city_combinations, lambda);
-
-            //Payment per Player also player 1 : 22 , player 2: 21 -> der echte Preis muss außerhalb berechnet werden
-            sorted_city_combinations[idx]["participants"]["values"][player].groves = result
-            percentage += result;
+            // Grooves-values is sth. like 22, 21
+            // real payment value has to be determined outside of the loop
+            cityCombinationsWithUtility[idx]["participants"]["values"][player].grooves = result
+            maxGrooves += result;
+            console.log("Grooves for player", currentPlayerName, ":", result)
         }
 
+        let tourCost = cityCombinationsWithUtility[idx]["tour_cost"];
+        let playerCount = cityCombinationsWithUtility[idx]["participants"]["values"].length;
 
-        let cost = sorted_city_combinations[idx]["tour_cost"];
-        let playerCount = sorted_city_combinations[idx]["participants"]["values"].length;
-
-        for (let player in sorted_city_combinations[idx]["participants"]["values"]) {
-
-            let playerJson = JSON.parse(JSON.stringify(sorted_city_combinations[idx]["participants"]["values"][player]));
-
-            let player_cost = 0;
+        console.log("Calculate payment according to Grooves...")
+        for (let player in cityCombinationsWithUtility[idx]["participants"]["values"]) { // TODO: same loop as before?
+            let playerJson = JSON.parse(JSON.stringify(cityCombinationsWithUtility[idx]["participants"]["values"][player]));
+            let playerCost = 0;
             // maximum budget for the player
-            let max_payment_player = playerJson["budget"];
-            let max_price = parseInt(max_payment_player.substring(0, max_payment_player.indexOf("€")));
-            let groves_value = playerJson.groves
-            if(playerCount === 1){
-                player_cost = cost;
-            }else{
-                player_cost = (groves_value / percentage) * cost;
+            let budgetText = playerJson["budget"];
+            let maxBudget = parseInt(budgetText.substring(0, budgetText.indexOf("€")));
+            let groovesValue = playerJson.grooves
+            if (playerCount === 1) {
+                playerCost = tourCost;
+            } else {
+                playerCost = (groovesValue / maxGrooves) * tourCost; // TODO: groovesValue can be null and maxGrooves can be -Infinity
             }
-            playerJson.payment = player_cost;
-            playerJson.affordable = max_price >= player_cost;
+            playerJson.payment = playerCost;
+            playerJson.affordable = maxBudget >= playerCost;
 
-            sorted_city_combinations[idx]["participants"]["values"][player] = JSON.parse(JSON.stringify(playerJson)); // TODO: extract to function (jsonCopy, or sth.)
+            cityCombinationsWithUtility[idx]["participants"]["values"][player] = JSON.parse(JSON.stringify(playerJson)); // TODO: extract to function (jsonCopy, or sth.)
+            console.log(playerJson.name, "must pay", playerCost, "(", groovesValue, "/", maxGrooves, ") *", tourCost);
         }
     }
 
-
-    for (let index in sorted_city_combinations) {
-        sorted_city_combinations[index]["affordable"] = isAffordable(sorted_city_combinations[index]["participants"]["values"])
+    console.log("Checking if city combination is affordable...")
+    for (let idx in cityCombinationsWithUtility) {
+        cityCombinationsWithUtility[idx]["affordable"] = isAffordable(cityCombinationsWithUtility[idx]["participants"]["values"])
+        console.log(cityCombinationsWithUtility[idx].cities.name, cityCombinationsWithUtility[idx].affordable);
     }
 
-    // console.log(sorted_city_combinations)
-
-    sorted_city_combinations = sorted_city_combinations.filter(x => x.affordable === true);
-    possibleResults["elements"] = sorted_city_combinations;
-    possibleResults["elements"].sort(function (a, b) {
-        return b.utility - a.utility;
-    });
-    // console.log(possibleResults)
-    console.log(possibleResults["elements"][0]);
-    return possibleResults["elements"][0];
+    let tourAndPlayerResults = {};
+    tourAndPlayerResults["elements"] = cityCombinationsWithUtility.filter(x => x.affordable === true); // keep only affordable solutions
+    tourAndPlayerResults["elements"].sort((a, b) => b.utility - a.utility);
+    console.log("RESULT:", tourAndPlayerResults["elements"][0]);
+    return tourAndPlayerResults["elements"][0];
 }
 
 function isAffordable(players) {
@@ -138,88 +131,75 @@ function isAffordable(players) {
     return affordable
 }
 
-function calculateGrooves(current_player_name, player_combination_name, city_combination, sorted_city_combinations, lambda) {
+function calculateGrooves(playerName, playerCombinationName, cityCombinationName, cityCombinations, lambda) {
+    let utilityOfOtherPlayersForThisRouteWithoutPlayer = calculateUtilityWithoutCurrentPlayer(
+        playerName,
+        playerCombinationName,
+        cityCombinationName,
+        cityCombinations);
 
-    let utility_of_other_players_with_this_route_without_current_player = calculateUtilityWithoutCurrentPlayer(
-        current_player_name,
-        player_combination_name,
-        city_combination,
-        sorted_city_combinations);
+    let utilityOfOtherPlayersWithOtherRoutes = calculateUtilityWithoutPlayerAndAnotherRoute(
+        playerName,
+        playerCombinationName,
+        cityCombinations);
 
-    let utility_of_other_players_with_other_routes = calculateUtilityWithoutCurrentPlayerAndAnotherRoute(
-        current_player_name,
-        player_combination_name,
-        sorted_city_combinations);
-
-    let groves = utility_of_other_players_with_other_routes * lambda -
-        utility_of_other_players_with_this_route_without_current_player;
-
-    return groves;
+    return utilityOfOtherPlayersWithOtherRoutes * lambda -
+        utilityOfOtherPlayersForThisRouteWithoutPlayer;
 }
 
-function calculateUtilityWithoutCurrentPlayerAndAnotherRoute(currentPlayer, playerCombi, sorted_city_combinations) {
+function calculateUtilityWithoutPlayerAndAnotherRoute(player, playerCombination, cityCombinations) {
 
-    let otherplayers = playerCombi.replace(currentPlayer, '');
-    let city_combi = sorted_city_combinations.filter(x => x.participants.name === otherplayers);
+    let otherPlayers = playerCombination.replace(player, '');
+    // cityCombinations with the other players, but without given player
+    let otherPlayersCityCombinationWithoutPlayer = cityCombinations.filter(x => x.participants.name === otherPlayers);
 
     let utility = [];
-    if (city_combi !== undefined) {
-        for(let index in city_combi){
-            utility.push(city_combi[index]["utility"])
+    if (otherPlayersCityCombinationWithoutPlayer !== undefined) {
+        for(let idx in otherPlayersCityCombinationWithoutPlayer) {
+            utility.push(otherPlayersCityCombinationWithoutPlayer[idx]["utility"]);
         }
-
-    }else{
-        utility.push(1)
+    } else {
+        utility.push(1); // because it will get multiplied later in Grooves
     }
     return Math.max(...utility);
 }
 
-function calculateUtilityWithoutCurrentPlayer(currentPlayer, playerCombi, cityCombi, sorted_city_combinations) {
+function calculateUtilityWithoutCurrentPlayer(player, playerCombination, cityCombinationName, cityCombinations) {
 
-    let otherplayers = playerCombi.replace(currentPlayer, '');
-    let city_combi = sorted_city_combinations.filter(x => x.cities.name === cityCombi && x.participants.name === otherplayers)[0];
+    let otherPlayers = playerCombination.replace(player, '');
+    let cityCombination = cityCombinations.filter(x => x.cities.name === cityCombinationName && x.participants.name === otherPlayers)[0];
 
-    let utility = 0;
-    if (city_combi !== undefined) {
-        utility = JSON.parse(city_combi.utility);
+    let utility;
+    if (cityCombination !== undefined) {
+        utility = JSON.parse(cityCombination.utility);
     } else {
         utility = 0;
     }
-
     return utility;
 }
 
 // Calculate Utilities
-function calculateUtilities(player_combination_idx, city_combination_idx) {
-    let player_combi = participants_combination[player_combination_idx]["values"]
-    let city_combi = cities_combination[city_combination_idx]["values"]
-
+// TODO: split - mixed purposes!
+function calculateUtilities(playerCombinationValues, cityCombinationValues) {
     let utility = 0;
-    let max_price = 0;
-    for (let participant_idx in player_combi) {
-        // Für einen Spliele z.B. Franzi
-
+    let maxPrice = 0;
+    for (let playerIdx in playerCombinationValues) {
         // maximum budget for the group
-        var budget = player_combi[participant_idx]["budget"];
-        max_price += parseInt(budget.substring(0, budget.indexOf("€")));
+        let budget = playerCombinationValues[playerIdx]["budget"];
+        maxPrice += parseInt(budget.substring(0, budget.indexOf("€")));
+        let values = playerCombinationValues[playerIdx]["preferences"];
 
-        let values = player_combi[participant_idx]["preferences"];
-
-        for (let cities_idx in city_combi) {
-
-            // Jede Stadt der Combination z.B. Tropea, Scilla , ...
-            let city = city_combi[cities_idx]["name"];
-
+        for (let cityIdx in cityCombinationValues) {
+            let city = cityCombinationValues[cityIdx]["name"];
             for (let p in values) {
-                var cityname = p.substring(0, p.indexOf(";"));
-                if (city.includes(cityname)) {
+                let cityName = p.substring(0, p.indexOf(";"));
+                if (city.includes(cityName)) {
                     utility += parseInt(values[p])
                 }
             }
         }
     }
-
-    return {utility, max_price};
+    return {utility, maxPrice};
 }
 
 async function getRouteDistance(combination) {
@@ -227,24 +207,23 @@ async function getRouteDistance(combination) {
     return waypointsResult["distance"] / 1000.0;
 }
 
-// Function to generate all combinations of cities or participants
 function getCombinations(valuesArray, k) {
-    var json = [];
-    var slent = Math.pow(2, valuesArray.length);
+    let json = [];
+    const powLen = Math.pow(2, valuesArray.length);
 
-    for (var i = 0; i < slent; i++) {
-        var temp = [];
-        var combination = {};
+    for (let i = 0; i < powLen; i++) {
+        let temp = [];
+        let combination = {};
 
-        for (var j = 0; j < valuesArray.length; j++) {
+        for (let j = 0; j < valuesArray.length; j++) {
             if ((i & Math.pow(2, j))) {
                 temp.push(valuesArray[j]);
             }
         }
         if (temp.length > 0 && temp.length <= k) {
             combination["name"] = "";
-            for (let p in temp) {
-                combination["name"] += temp[p]["name"];
+            for (let idx in temp) {
+                combination["name"] += temp[idx]["name"];
             }
             combination["values"] = temp;
 
