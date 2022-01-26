@@ -121,7 +121,7 @@ function markRoute(platform, map, routingParameters) {
                 // console.log(routeLine)
                 // TODO: set map viewpoint to whole route
                 // Set the map's viewport to make the whole route visible:
-                map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox(), zoom: 6});
+                map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox(), zoom: 7});
                 //console.log(result.routes[0])
             });
         }

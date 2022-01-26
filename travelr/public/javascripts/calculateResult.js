@@ -1,8 +1,8 @@
 async function getResult(json) {
     let resultJson = {};
-    let makKm = json["max_km"]; // TODO: has to be incorporated!
+    let maxKm = json["max_km"];
     let k = json["k"];
-    let rangeStart = json["range_start"];
+    let rangeStart = json["range_start"]; // TODO: remove range (also from form)
     let rangeEnd = json["range_end"];
     let fixedCost = json["fixed_cost"];
     let cityCost = json["city_cost"];
@@ -27,12 +27,14 @@ async function getResult(json) {
     for (let idx in cityCombinations) {
         let citiesCombinationsWithStart = [start].concat(cityCombinations[idx]["values"])
         let distance = await getRouteDistance(citiesCombinationsWithStart);
+        cityCombinations[idx].belowDistanceLimit = distance <= maxKm;
         cityCombinations[idx]["distance"] = distance;
         let routeCost = (distance * cityCost) + fixedCost;
         cityCombinations[idx]["cost"] = (Math.round(routeCost * 100) / 100).toFixed(2);
         console.log("Cost for", cityCombinations[idx].name, ":", cityCombinations[idx].cost)
     }
 
+    cityCombinations = cityCombinations.filter(c => c.belowDistanceLimit === true)
     console.log(cityCombinations)
 
     resultJson["elements"] = [];
