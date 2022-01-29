@@ -1,5 +1,4 @@
 async function getResult(json) {
-    let resultJson = {};
     let maxKm = json["max_km"];
     let k = json["k"];
     let fixedCost = json["fixed_cost"];
@@ -7,61 +6,28 @@ async function getResult(json) {
     let start = json["start"];
     let playerData = json["data"];
     let cities = json["cities"];
-    let players = new Set();
+    let playerNames = new Set();
     playerData.forEach(d => {
-        players.add(d["name"]);
+        playerNames.add(d["name"]);
     });
 
-    console.log("Finding best route for", Array.from(players).join(", "), "and cities", cities)
+    console.log("Finding best route for", Array.from(playerNames).join(", "), "and cities", cities)
 
     // Compute Combinations
     let playerCombinations = getCombinations(Array.from(playerData), k);
     console.log("Player combinations:", playerCombinations)
-    let cityCombinations = getCombinations(Array.from(cities), Object.keys(cities).length);
+    let cityCombinations = await getCityCombinationsWithDistance(Array.from(cities), start);
     console.log("City combinations:", cityCombinations)
 
-    // Calculate costs for each participant
     console.log("Computing costs...")
-    for (let idx in cityCombinations) {
-        let citiesCombinationsWithStart = [start].concat(cityCombinations[idx]["values"])
-        let distance = await getRouteDistance(citiesCombinationsWithStart);
-        cityCombinations[idx].belowDistanceLimit = distance <= maxKm;
-        cityCombinations[idx]["distance"] = distance;
-        let routeCost = (distance * cityCost) + fixedCost;
-        cityCombinations[idx]["cost"] = (Math.round(routeCost * 100) / 100).toFixed(2);
-        console.log("Cost for", cityCombinations[idx].name, ":", cityCombinations[idx].cost)
-    }
+    calculateCosts(cityCombinations, cityCost, fixedCost);
+    cityCombinations = filterForMaxRouteLength(cityCombinations, maxKm);
+    // console.log(cityCombinations)
 
-    cityCombinations = cityCombinations.filter(c => c.belowDistanceLimit === true)
-    console.log(cityCombinations)
-
-    resultJson["elements"] = [];
     console.log("Calculating utilities...")
     // Calculate Utilities
-    for (let participant_idx in playerCombinations) {
-        for (let cities_idx in cityCombinations) {
-
-            let results = calculateUtilities(
-                playerCombinations[participant_idx].values,
-                cityCombinations[cities_idx].values)
-
-            console.log(playerCombinations[participant_idx].name, "for", cityCombinations[cities_idx].name, ":", results.utility)
-
-            resultJson["elements"].push({
-                "participants": playerCombinations[participant_idx],
-                "cities": cityCombinations[cities_idx],
-                "distance": cityCombinations[cities_idx].distance,
-                "utility": results.utility,
-                "budget": results.maxPrice,
-                "tour_cost": parseFloat(cityCombinations[cities_idx].cost),
-                "affordable": false
-            });
-        }
-    }
-
-    let cityCombinationsWithUtility = resultJson["elements"];
-
-    console.log(cityCombinationsWithUtility.sort((a, b) => b.utility - a.utility))
+    let cityCombinationsWithUtility = getCityCombinationsWithUtilities(playerCombinations, cityCombinations);
+    console.log(cityCombinationsWithUtility)
 
     // Calculate Grooves - payment
     const lambda = 2;
@@ -69,6 +35,7 @@ async function getResult(json) {
     for (let idx in cityCombinationsWithUtility) {
         let playerCombinationName = cityCombinationsWithUtility[idx]["participants"]["name"];
         let cityCombinationName = cityCombinationsWithUtility[idx]["cities"]["name"];
+        // let players = cityCombinationsWithUtility[idx]["participants"]["values"];
         let maxGrooves = 0;
 
         // For all players in the city-combination
@@ -91,9 +58,7 @@ async function getResult(json) {
         for (let player in cityCombinationsWithUtility[idx]["participants"]["values"]) { // TODO: same loop as before?
             let playerJson = JSON.parse(JSON.stringify(cityCombinationsWithUtility[idx]["participants"]["values"][player]));
             let playerCost = 0;
-            // maximum budget for the player
-            let budgetText = playerJson["budget"];
-            let maxBudget = parseInt(budgetText.substring(0, budgetText.indexOf("€")));
+            let budget = playerJson["budget"];
             let groovesValue = playerJson.grooves
             if (playerCount === 1) {
                 playerCost = tourCost;
@@ -101,7 +66,7 @@ async function getResult(json) {
                 playerCost = (groovesValue / maxGrooves) * tourCost; // TODO: groovesValue can be null and maxGrooves can be -Infinity
             }
             playerJson.payment = playerCost;
-            playerJson.affordable = maxBudget >= playerCost;
+            playerJson.affordable = budget >= playerCost;
 
             cityCombinationsWithUtility[idx]["participants"]["values"][player] = JSON.parse(JSON.stringify(playerJson)); // TODO: extract to function (jsonCopy, or sth.)
             console.log(playerJson.name, "must pay", playerCost, "(", groovesValue, "/", maxGrooves, ") *", tourCost);
@@ -110,11 +75,12 @@ async function getResult(json) {
 
     console.log("Checking if city combination is affordable...")
     for (let idx in cityCombinationsWithUtility) {
-        cityCombinationsWithUtility[idx]["affordable"] = isAffordable(cityCombinationsWithUtility[idx]["participants"]["values"])
+        cityCombinationsWithUtility[idx].affordable = isAffordable(cityCombinationsWithUtility[idx]["participants"]["values"])
         console.log(cityCombinationsWithUtility[idx].cities.name, cityCombinationsWithUtility[idx].affordable);
     }
 
     let tourAndPlayerResults = {};
+    // TODO: find a way to put also this step together with the checking for affordability into a function
     tourAndPlayerResults["elements"] = cityCombinationsWithUtility.filter(x => x.affordable === true); // keep only affordable solutions
     tourAndPlayerResults["elements"].sort((a, b) => b.utility - a.utility);
     console.log("RESULT:", tourAndPlayerResults["elements"][0]);
@@ -178,33 +144,35 @@ function calculateUtilityWithoutCurrentPlayer(player, playerCombination, cityCom
     return utility;
 }
 
-// Calculate Utilities
-// TODO: split - mixed purposes!
-function calculateUtilities(playerCombinationValues, cityCombinationValues) {
+function calculateUtility(playerCombinationValues, cityCombinationValues) {
     let utility = 0;
-    let maxPrice = 0;
     for (let playerIdx in playerCombinationValues) {
-        // maximum budget for the group
-        let budget = playerCombinationValues[playerIdx]["budget"];
-        maxPrice += parseInt(budget.substring(0, budget.indexOf("€")));
-        let values = playerCombinationValues[playerIdx]["preferences"];
-
+        let preferences = playerCombinationValues[playerIdx]["preferences"];
         for (let cityIdx in cityCombinationValues) {
-            let city = cityCombinationValues[cityIdx]["name"];
-            for (let p in values) {
-                let cityName = p.substring(0, p.indexOf(";"));
-                if (city.includes(cityName)) {
-                    utility += parseInt(values[p])
+            let cityOfCombination = cityCombinationValues[cityIdx]["name"];
+            for (let p in preferences) {
+                let cityOfPlayerPreferences = p.substring(0, p.indexOf(";"));
+                if (cityOfCombination === cityOfPlayerPreferences) {
+                    utility += parseInt(preferences[p])
                 }
             }
         }
     }
-    return {utility, maxPrice};
+    return utility;
 }
 
 async function getRouteDistance(combination) {
-    let waypointsResult = (await arrangeForShortestPath(combination)).results[0];
+    let waypointsResult = (await arrangeForShortestPath(combination, 10)).results[0];
     return waypointsResult["distance"] / 1000.0;
+}
+
+async function getCityCombinationsWithDistance(cities, startCity) {
+    let combinations = getCombinations(cities, cities.length)
+    for (let idx in combinations) {
+        let combinationsWithStart = [startCity].concat(combinations[idx]["values"])
+        combinations[idx].distance = await getRouteDistance(combinationsWithStart);
+    }
+    return combinations;
 }
 
 function getCombinations(valuesArray, k) {
@@ -232,4 +200,44 @@ function getCombinations(valuesArray, k) {
     }
 
     return json;
+}
+
+function calculateCosts(cityCombinations, cityCost, fixedCost) {
+    for (let idx in cityCombinations) {
+        let routeCost = (cityCombinations[idx].distance * cityCost) + fixedCost;
+        cityCombinations[idx].cost = (Math.round(routeCost * 100) / 100).toFixed(2);
+        console.log("Cost for", cityCombinations[idx].name, ":", cityCombinations[idx].cost)
+    }
+}
+
+function filterForMaxRouteLength(cityCombinations, maxKm) {
+    for (let idx in cityCombinations) {
+        let distance = cityCombinations[idx].distance;
+        cityCombinations[idx].belowDistanceLimit = distance <= maxKm;
+    }
+    return cityCombinations.filter(c => c.belowDistanceLimit === true)
+}
+
+// TODO: refactor
+function getCityCombinationsWithUtilities(playerCombinations, cityCombinations) {
+    let cityCombinationsWithUtilities = [];
+    for (let playerIdx in playerCombinations) {
+        for (let cityIdx in cityCombinations) {
+            let utility = calculateUtility(
+                playerCombinations[playerIdx].values,
+                cityCombinations[cityIdx].values);
+
+            console.log(playerCombinations[playerIdx].name, "for", cityCombinations[cityIdx].name, ":", utility);
+
+            cityCombinationsWithUtilities.push({
+                "participants": playerCombinations[playerIdx],
+                "cities": cityCombinations[cityIdx],
+                "distance": cityCombinations[cityIdx].distance,
+                "utility": utility,
+                "tour_cost": parseFloat(cityCombinations[cityIdx].cost),
+                //"affordable": false
+            });
+        }
+    }
+    return cityCombinationsWithUtilities.sort((a, b) => b.utility - a.utility);
 }

@@ -174,13 +174,19 @@ async function arrangeForShortestPath(coordinates, max_retries= 5) {
         headers: {},
         method: 'GET'})
         .then(response => { return response.json(); })
-        .catch(err => {
+        .catch(async err => {
             console.error(err);
             // workaround
             if (err.stack.includes("TypeError") || err.stack.includes("Failed to fetch")) {
                 // some weird CORS error we can't resolve
                 if (max_retries > 0) {
+                    await sleep(250);
                     return arrangeForShortestPath(coordinates, max_retries - 1);
                 }
-            }});
+            }
+        });
+}
+
+async function sleep(msec) {
+    return new Promise(resolve => setTimeout(resolve, msec));
 }

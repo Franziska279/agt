@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     try {
         resultJson = await getResult(dataJson);
     } catch (e) {
-        alert("Something went wrong! Please submit your data again!")
+        alert("Sorry! We are experiencing technical difficulties! Please try again later!")
         console.log(e)
         // TODO: error message
         return;
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     // participants
     //      values (array)
     //          name, budget, preferences, groves, payment
-    // TODO: remove affordable
+    // affordable
 
     let participants = resultJson.participants.values;
 
