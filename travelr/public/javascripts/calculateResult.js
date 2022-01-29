@@ -94,6 +94,7 @@ function calculatePlayerPaymentForGrooves(tourCost, players, maxGrooves) {
         let playerJson = copyJson(players[player]);
         let payment = 0;
         let budget = playerJson["budget"];
+        console.log(typeof budget)
         let grooves = playerJson.grooves
         if (players.length === 1) {
             payment = tourCost;
@@ -147,13 +148,12 @@ function calculateUtilityWithoutPlayerAndAnotherRoute(player, playerCombination,
 }
 
 function calculateUtilityWithoutCurrentPlayer(player, playerCombination, cityCombinationName, cityCombinations) {
-
     let otherPlayers = playerCombination.replace(player, '');
     let cityCombination = cityCombinations.filter(x => x.cities.name === cityCombinationName && x.participants.name === otherPlayers)[0];
 
     let utility;
     if (cityCombination !== undefined) {
-        utility = JSON.parse(cityCombination.utility);
+        utility = cityCombination.utility;
     } else {
         utility = 0;
     }
@@ -169,7 +169,7 @@ function calculateUtility(playerCombinationValues, cityCombinationValues) {
             for (let p in preferences) {
                 let cityOfPlayerPreferences = p.substring(0, p.indexOf(";"));
                 if (cityOfCombination === cityOfPlayerPreferences) {
-                    utility += parseInt(preferences[p])
+                    utility += preferences[p];
                 }
             }
         }
