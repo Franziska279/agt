@@ -24,7 +24,7 @@ function addParticipantData(json, participantData) {
     Array.from(participantData).forEach(p => {
         let name = p.getElementsByClassName('name')[0].innerHTML;
         let budget = p.getElementsByClassName('budget')[0].innerHTML;
-        budget = budget.substring(0, budget.indexOf("€"));
+        budget = budget.substring(0, budget.indexOf("€")); // TODO: convert to integer
         let preferences = p.getElementsByClassName('preferences')[0].innerHTML;
         let prefSplit = preferences.split(", ");
         let prefMap = new Map();

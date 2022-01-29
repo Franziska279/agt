@@ -22,13 +22,11 @@ document.addEventListener("DOMContentLoaded", async function() {
     } catch (e) {
         alert("Sorry! We are experiencing technical difficulties! Please try again later!")
         console.log(e)
-        // TODO: error message
         return;
     }
 
     if (resultJson === undefined) {
-        alert("Something went wrong! Please submit your data again!")
-        // TODO: error message
+        alert("We could not find a suitable route!")
         return;
     }
     // structure:
