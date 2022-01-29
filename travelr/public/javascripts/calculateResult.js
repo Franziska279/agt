@@ -2,8 +2,6 @@ async function getResult(json) {
     let resultJson = {};
     let maxKm = json["max_km"];
     let k = json["k"];
-    let rangeStart = json["range_start"]; // TODO: remove range (also from form)
-    let rangeEnd = json["range_end"];
     let fixedCost = json["fixed_cost"];
     let cityCost = json["city_cost"];
     let start = json["start"];
