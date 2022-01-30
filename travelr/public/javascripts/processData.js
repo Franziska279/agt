@@ -16,22 +16,24 @@ document.addEventListener("DOMContentLoaded", async function() {
     tourCities.splice(0, 1); // remove start
     dataJson["cities"] = tourCities;
 
-    let resultJson;
+    let bestTour;
     try {
-        resultJson = await getResult(dataJson);
+        bestTour = await getResult(dataJson);
+        console.log(tourDebug);
     } catch (e) {
         alert("Sorry! We are experiencing technical difficulties! Please try again later!")
         console.log(e)
         return;
     }
 
-    if (resultJson === undefined) {
+    if (bestTour === undefined) {
         alert("We could not find a suitable route!")
         return;
     }
+
     // structure:
     // distance (in km)
-    // tour_cost
+    // tourCost
     // cities
     //      values (array)
     //          name, lat, lng
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     //          name, budget, preferences, groves, payment
     // affordable
 
-    let participants = resultJson.participants.values;
+    let participants = bestTour.participants.values;
 
     let resultParticipantDiv = document.getElementById("result-participant-div");
     participants.forEach(p => {
@@ -48,18 +50,17 @@ document.addEventListener("DOMContentLoaded", async function() {
         pEl.innerHTML = `${p.name}: ${p.payment.toFixed(2)}€`;
         resultParticipantDiv.appendChild(pEl);
     });
-    document.getElementById("total-cost").innerHTML = resultJson.tour_cost + ' €';
-    document.getElementById("distance").innerHTML = resultJson.distance + ' km';
+    document.getElementById("total-cost").innerHTML = bestTour.tourCost + ' €';
+    document.getElementById("distance").innerHTML = bestTour.distance + ' km';
 
     let resultCities = dataJson.start.name;
-    resultJson.cities.values.forEach(c => {
+    bestTour.cities.values.forEach(c => {
         resultCities += ' - ' + c.name;
     });
     document.getElementById('route-text-div').getElementsByTagName("p")[0].innerHTML = resultCities;
 
-    let tourCoordinates = resultJson.cities.values;
+    let tourCoordinates = bestTour.cities.values;
     tourCoordinates.unshift(dataJson.start);
-    console.log(tourCoordinates);
 
     setMap(tourCoordinates);
 });
