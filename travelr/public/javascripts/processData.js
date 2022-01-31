@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     try {
         bestTour = await getResult(dataJson);
         console.log(tourDebug);
+        setDebugLog();
     } catch (e) {
         alert("Sorry! We are experiencing technical difficulties! Please try again later!")
         console.log(e)
@@ -68,4 +69,31 @@ document.addEventListener("DOMContentLoaded", async function() {
 function addStartToArray(cities, startingPoint) {
     cities.splice(0, 0, startingPoint);
     return cities;
+}
+
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+function setDebugLog() {
+    let debugPre = document.getElementById("debug-json");
+    debugPre.innerHTML = syntaxHighlight(JSON.stringify(tourDebug, undefined, 4));
 }

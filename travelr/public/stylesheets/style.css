@@ -170,17 +170,19 @@ a {
 }
 
 #result-grid {
-  max-width: 1000px;
-  margin: auto;
+  /*max-width: 1000px;*/
+  /*margin: auto;*/
   display: grid;
   grid-gap: 10px;
   column-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 70px 60px auto;
+  grid-template-rows: 70px 60px auto; /* auto; */
   grid-template-areas:
           'tour tour tour tour tour tour tour'
           'data data map map map map map'
           'participants participants map map map map map';
+          /*'debug debug debug debug debug debug debug';*/
+  grid-area: result;
 }
 
 #data-div {
@@ -240,6 +242,51 @@ a {
 /*  placeholder */
   height: 450px;
   border: slategray solid 1px;
+}
+
+#result-debug-grid {
+  max-width: 80%;
+  margin: auto;
+  display: grid;
+  /*grid-gap: 10px;*/
+  column-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+          'title title title title debug'
+          'result result result result debug';
+}
+
+#debug-log {
+  grid-area: debug;
+  border: slategray solid 1px;
+  min-width: 300px;
+  max-width: 500px;
+  display: none;
+  height: 41em;
+  margin-bottom: 0;
+}
+
+pre {
+  /*outline: 1px solid #ccc;*/
+  /*padding: 5px;*/
+  margin: -5px;
+  text-align: left;
+  font-size: smaller; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+#title-compute {
+  grid-area: title;
+}
+
+#debug-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 #back-btn {

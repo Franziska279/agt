@@ -14,40 +14,26 @@ async function getResult(json) {
     });
     const lambda = 2;
 
-    // console.log("Finding best route for", Array.from(playerNames).join(", "), "and cities", cities)
-
-    // Compute Combinations
     let playerCombinations = getCombinations(Array.from(playerData), k);
-    // console.log("Player combinations:", playerCombinations)
     let cityCombinations = await getCityCombinationsWithDistance(Array.from(cities), start);
-    // console.log("City combinations:", cityCombinations)
 
-    tourDebug.push({"cities": copyJson(cities).push(start)});
+    let citiesWithStart = copyJson(cities);
+    citiesWithStart.push(start);
+    tourDebug.push({"cities": citiesWithStart});
     tourDebug.push({"players": copyJson(playerData)});
     tourDebug.push({"playerCombinations" : copyJson(playerCombinations)});
     tourDebug.push({"cityCombinations" : copyJson(cityCombinations)});
 
-    calculateCosts(cityCombinations, cityCost, fixedCost);
     cityCombinations = filterByMaxRouteLength(cityCombinations, maxKm);
-    // console.log(cityCombinations)
-
-    // console.log("Calculating utilities...")
-    // Calculate Utilities and merge combinations
+    calculateCosts(cityCombinations, cityCost, fixedCost);
     let combinations = getCombinationsWithUtilities(playerCombinations, cityCombinations);
-    // console.log(combinations)
-
-    // console.log("Calculate Grooves with lambda", lambda)
-    // Calculate Grooves - payment
     calculatePaymentsWithGroovesForCombinations(combinations, lambda);
-
-    // console.log("Checking if city combination is affordable...")
     combinations = filterByBudget(combinations);
 
     let tourAndPlayerResults = {};
     tourAndPlayerResults["elements"] = combinations;
     tourAndPlayerResults["elements"].sort((a, b) => b.utility - a.utility);
     let bestTour = tourAndPlayerResults["elements"][0];
-    // console.log("RESULT:", bestTour);
     tourDebug.push({"bestThree" : tourAndPlayerResults["elements"].slice(0, 3)})
     tourDebug.push({"bestTour" : bestTour});
     return bestTour;
@@ -70,17 +56,17 @@ function filterByBudget(combinations) {
         let debugParticipants = [];
         for (let p in c.participants.values) {
             let participant = c.participants.values[p];
-            debugParticipants[`${participant.name}`] = {
+            debugParticipants.push({
+                "name": participant.name,
                 "budget": participant.budget,
                 "payment" : participant.payment
-            };
+            });
         }
         debugObj.push({
             "combination" : `${c.cities.name}-${participantCombinationName}`,
             "affordable" : c.affordable,
             "participants" : debugParticipants
         });
-        // console.log(c.cities.name, c.affordable);
         return c.affordable;
     });
     tourDebug.push({"isAffordable" : debugObj.sort((a, b) => b.affordable - a.affordable)});
@@ -96,7 +82,7 @@ function calculatePaymentsWithGroovesForCombinations(combinations, lambda) {
         let cityCombinationName = combinations[idx].cities.name;
 
         let debugId = `${cityCombinationName}-${playerCombinationName}`;
-        debugObj[debugId] = [];
+        let combinationJson = {"id": `${cityCombinationName}-${playerCombinationName}`};
 
         // For all players in the combination
         for (let player in players) {
@@ -108,30 +94,30 @@ function calculatePaymentsWithGroovesForCombinations(combinations, lambda) {
             // real payment value has to be determined outside the loop
             playerJson.grooves = grooves
             maxGrooves += grooves;
-            // console.log("Grooves for player", currentPlayerName, ":", grooves)
             combinations[idx]["participants"]["values"][player] = copyJson(playerJson);
 
-            debugObj[debugId][playerJson.name] = {
+            combinationJson[playerJson.name] = {
                 "grooves": {
                     "value": grooves,
                     "calculation": tourDebug[debugId]
-                }
+                },
+                "payment" : 0
             };
+
             delete tourDebug[debugId];
         }
 
-        debugObj[debugId].maxGrooves = maxGrooves;
-        debugObj[debugId].tourCost = combinations[idx].tourCost;
+        combinationJson.maxGrooves = maxGrooves;
+        combinationJson.tourCost = combinations[idx].tourCost;
 
-        // console.log("Calculate payment according to Grooves...")
         combinations[idx].participants.values =
             calculatePlayerPaymentForGrooves(combinations[idx].tourCost, copyJson(players), maxGrooves);
 
         for (let player in players) {
-            debugObj[debugId][players[player].name].payment = tourDebug.payments[players[player].name].payment;
+            combinationJson[players[player].name].payment = tourDebug.payments[players[player].name].payment;
         }
         delete tourDebug.payments;
-        //debugObj[`${playerCombinationName}-${cityCombinationName}`] = combinations[idx]["participants"]["values"];
+        debugObj.push(combinationJson);
     }
     tourDebug.push({"paymentsByGrooves" : debugObj});
 }
@@ -162,7 +148,6 @@ function calculatePlayerPaymentForGrooves(tourCost, playersCopy, maxGrooves) {
         tourDebug["payments"] = debugObj;
 
         resultPlayers.push(player);
-        // console.log(playerJson.name, "must pay", payment, "(", grooves, "/", maxGrooves, ") *", tourCost);
     }
     return copyJson(resultPlayers);
 }
@@ -183,8 +168,9 @@ function calculateGroovesForPlayer(playerName, playerCombinationName, cityCombin
         playerCombinationName,
         cityCombinations);
 
-    tourDebug[`${cityCombinationName}-${playerCombinationName}`] =
-        `${utilityOfOtherPlayersWithOtherRoutes} * ${lambda} - ${utilityOfOtherPlayersForThisRouteWithoutPlayer}`;
+    tourDebug[`${cityCombinationName}-${playerCombinationName}`] = [];
+    tourDebug[`${cityCombinationName}-${playerCombinationName}`].push(
+        `${utilityOfOtherPlayersWithOtherRoutes} * ${lambda} - ${utilityOfOtherPlayersForThisRouteWithoutPlayer}`);
     return utilityOfOtherPlayersWithOtherRoutes * lambda -
         utilityOfOtherPlayersForThisRouteWithoutPlayer;
 }
@@ -265,8 +251,11 @@ function calculateCosts(cityCombinations, cityCost, fixedCost) {
     for (let idx in cityCombinations) {
         let routeCost = cityCombinations[idx].distance * cityCost + fixedCost;
         cityCombinations[idx].cost = (Math.round(routeCost * 100) / 100).toFixed(2);
-        debugObj[`${cityCombinations[idx].name}`] = {"cost" : cityCombinations[idx].cost, "calculation" : `${cityCombinations[idx].distance} * ${cityCost} + ${fixedCost}`}
-        // console.log("Cost for", cityCombinations[idx].name, ":", cityCombinations[idx].cost)
+        debugObj.push({
+            "city": `${cityCombinations[idx].name}`,
+            "cost" : cityCombinations[idx].cost,
+            "calculation" : `${cityCombinations[idx].distance} * ${cityCost} + ${fixedCost}`
+        });
     }
     tourDebug.push({"costCalculation" : debugObj});
 }
@@ -276,7 +265,7 @@ function filterByMaxRouteLength(cityCombinations, maxKm) {
     for (let idx in cityCombinations) {
         let distance = cityCombinations[idx].distance;
         cityCombinations[idx].belowDistanceLimit = distance <= maxKm;
-        debugObj[`${cityCombinations[idx].name}`] = cityCombinations[idx].belowDistanceLimit;
+        debugObj.push({"city": `${cityCombinations[idx].name}`, "isBelow": cityCombinations[idx].belowDistanceLimit});
     }
     tourDebug.push({"isBelowMaxRouteLength" : debugObj});
     return cityCombinations.filter(c => c.belowDistanceLimit === true)
@@ -290,8 +279,6 @@ function getCombinationsWithUtilities(playerCombinations, cityCombinations) {
             let playerCombination = playerCombinations[playerIdx];
             let cityCombinationName = cityCombinations[cityIdx].name;
             let utility = calculateUtility(playerCombination, cityCombinationName);
-
-            // console.log(playerCombinations[playerIdx].name, "for", cityCombinations[cityIdx].name, ":", utility);
 
             let playerCityCombination = {
                 "participants": copyJson(playerCombination),
@@ -320,15 +307,16 @@ function calculateUtility(playerCombination, cityCombinationName) {
     let players = playerCombination.values;
     let utility = 0;
     for (let player in players) {
-        tourDebug[debugId][`${players[player].name}`] = [];
+        let playerJson = {"player" : players[player].name};
         let preferences = players[player].preferences;
         for (let p in preferences) {
             let city = p.substring(0, p.indexOf(";"));
             if (cityCombinationName.includes(city)) {
                 utility += preferences[p];
-                tourDebug[debugId][`${players[player].name}`][city] = preferences[p];
+                playerJson[city] = preferences[p];
             }
         }
+        tourDebug[debugId].push(playerJson);
     }
     return utility;
 }
