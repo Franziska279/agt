@@ -22,13 +22,15 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.log(tourDebug);
         setDebugLog();
     } catch (e) {
-        alert("Sorry! We are experiencing technical difficulties! Please try again later!")
+        alert("Sorry! We are experiencing technical difficulties! Please try again later!");
         console.log(e)
+        hideLoadingScreen();
         return;
     }
 
     if (bestTour === undefined) {
-        alert("We could not find a suitable route!")
+        alert("We could not find a suitable route!");
+        hideLoadingScreen();
         return;
     }
 
@@ -64,7 +66,12 @@ document.addEventListener("DOMContentLoaded", async function() {
     tourCoordinates.unshift(dataJson.start);
 
     setMap(tourCoordinates);
+    hideLoadingScreen();
 });
+
+function hideLoadingScreen() {
+    document.getElementById("loading-screen").style.display = "none";
+}
 
 function addStartToArray(cities, startingPoint) {
     cities.splice(0, 0, startingPoint);

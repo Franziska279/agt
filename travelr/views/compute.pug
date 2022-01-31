@@ -1,6 +1,10 @@
 extends layout_compute
 
 block content
+    div#loading-screen
+        div
+            img(src="images/loading.gif")
+            p Calculating best tour...
     button#debug-btn.small-action(onclick="showHideDebugLog()") Show/Hide Debug Log
     div#result-debug-grid
         div.title-div#title-compute
