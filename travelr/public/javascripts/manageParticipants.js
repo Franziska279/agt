@@ -1,9 +1,15 @@
-function addParticipant() {
-    // TODO: should we validate user input?
-    let name = document.getElementById("name").value.trim();
-    let budget = document.getElementById("budget").value.trim();
-    let preferences = document.getElementById("preferences").value.trim();
+document.addEventListener("DOMContentLoaded", () => {
+    addParticipant("Franzi", "340€", "Tropea (89861): 8, Scilla (89058): 3, Reggio (89135): -2");
+    addParticipant("Kerstin", "420€", "Scilla (89058): 7, Catanzaro (88100): 2, Tropea (89861): 1");
+    addParticipant("Ruth", "370€", "Tropea (89861): 7, Reggio (89135): 5, Scilla (89058): -3");
+})
 
+function addParticipant(name = null, budget = null, preferences = null) {
+    if (name === null || budget === null || preferences === null) {
+        name = document.getElementById("name").value.trim();
+        budget = document.getElementById("budget").value.trim();
+        preferences = document.getElementById("preferences").value.trim();
+    }
     let participantP = document.createElement("p");
     let nameSpan = document.createElement("span");
     nameSpan.innerHTML = name;

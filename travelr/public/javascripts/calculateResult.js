@@ -48,6 +48,7 @@ async function getResult(json) {
     tourAndPlayerResults["elements"].sort((a, b) => b.utility - a.utility);
     let bestTour = tourAndPlayerResults["elements"][0];
     // console.log("RESULT:", bestTour);
+    tourDebug.push({"bestThree" : tourAndPlayerResults["elements"].slice(0, 3)})
     tourDebug.push({"bestTour" : bestTour});
     return bestTour;
 }
