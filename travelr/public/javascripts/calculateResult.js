@@ -4,7 +4,7 @@ async function getResult(json) {
     let maxKm = parseInt(json["max_km"]);
     let k = parseInt(json["k"]);
     let fixedCost = parseInt(json["fixed_cost"]);
-    let cityCost = parseInt(json["city_cost"]);
+    let kmCost = parseInt(json["km_cost"]);
     let start = json["start"];
     let playerData = json["data"];
     let cities = json["cities"];
@@ -25,7 +25,7 @@ async function getResult(json) {
     tourDebug.push({"cityCombinations" : copyJson(cityCombinations)});
 
     cityCombinations = filterByMaxRouteLength(cityCombinations, maxKm);
-    calculateCosts(cityCombinations, cityCost, fixedCost);
+    calculateCosts(cityCombinations, kmCost, fixedCost);
     let combinations = getCombinationsWithUtilities(playerCombinations, cityCombinations);
     calculatePaymentsWithGroovesForCombinations(combinations, lambda);
     combinations = filterByBudget(combinations);
@@ -246,15 +246,15 @@ function getCombinations(valuesArray, k) {
     return json;
 }
 
-function calculateCosts(cityCombinations, cityCost, fixedCost) {
+function calculateCosts(cityCombinations, kmCost, fixedCost) {
     let debugObj = [];
     for (let idx in cityCombinations) {
-        let routeCost = cityCombinations[idx].distance * cityCost + fixedCost;
+        let routeCost = cityCombinations[idx].distance * kmCost + fixedCost;
         cityCombinations[idx].cost = (Math.round(routeCost * 100) / 100).toFixed(2);
         debugObj.push({
             "city": `${cityCombinations[idx].name}`,
             "cost" : cityCombinations[idx].cost,
-            "calculation" : `${cityCombinations[idx].distance} * ${cityCost} + ${fixedCost}`
+            "calculation" : `${cityCombinations[idx].distance} * ${kmCost} + ${fixedCost}`
         });
     }
     tourDebug.push({"costCalculation" : debugObj});

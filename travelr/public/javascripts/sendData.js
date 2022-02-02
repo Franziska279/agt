@@ -5,7 +5,7 @@ function addTourData() {
     let maxKm = document.getElementById('max_km').value;
     let k = document.getElementById('k').value;
     let fixedCost = document.getElementById('fixed_cost').value;
-    let cityCost = document.getElementById('city_cost').value;
+    let kmCost = document.getElementById('km_cost').value;
 
     let json = {"start": startingPoint + ";" + postalCode, "data": []};
 
@@ -13,7 +13,7 @@ function addTourData() {
     json["max_km"] = maxKm;
     json["k"] = k;
     json["fixed_cost"] = fixedCost;
-    json["city_cost"] = cityCost;
+    json["km_cost"] = kmCost;
 
     document.getElementById('tourData').value = JSON.stringify(json);
     // console.log(json);
