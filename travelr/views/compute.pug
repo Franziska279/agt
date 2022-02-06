@@ -1,30 +1,36 @@
 extends layout_compute
 
 block content
-    div.title-div
-        img(src='images/Travelr_Logo.png').logo-small
-        h1= title
-        span !{' '}
-        form(action='modify', method='POST')
-            input.hidden(name='fromIndex')
-            // TODO: change hidden input name
-            input(type='submit', value='Back').small-action#back-btn
-    // p This is the page where the results are shown after computation!
-    div#result-grid
-        div#route-div
-            h2 Tour Result:
-            div#route-text-div
-                p
-        div#data-div
-            h3 Data
-            div#data
-                p Distance:!{' '}
-                    span#distance
-                p Total Cost:!{' '}
-                    span#total-cost
-        div#result-div
-            h3 Participants
-            div.scroll-div#result-participant-div
-                p.hidden#result-data= data
-        div#map-div
+    div#loading-screen
+        div
+            img(src="images/loading.gif")
+            p Calculating best tour...
+    button#debug-btn.small-action(onclick="showHideDebugLog()") Show/Hide Debug Log
+    div#result-debug-grid
+        div.title-div#title-compute
+            img(src='images/Travelr_Logo.png').logo-small
+            h1= title
+            span !{' '}
+            form(action='modify', method='POST')
+                input.hidden(name='fromIndex')
+                input(type='submit', value='Back').small-action#back-btn
+        div#result-grid
+            div#route-div
+                h2 Tour Result:
+                div#route-text-div
+                    p
+            div#data-div
+                h3 Data
+                div#data
+                    p Distance:!{' '}
+                        span#distance
+                    p Total Cost:!{' '}
+                        span#total-cost
+            div#result-div
+                h3 Participants
+                div.scroll-div#result-participant-div
+                    p.hidden#result-data= data
+            div#map-div
+        div#debug-log.scroll-div
+            pre#debug-json
 
