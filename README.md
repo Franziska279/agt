@@ -136,13 +136,13 @@ Through this displayed button, a page to modify the tour calculation parameters 
 It is very important that each player is added to the mechanism with the following syntax:
 
 ```bash
-Name(Price €) - {City(Postcode): preference, City(Postcode): preference, City(Postcode): preference ....}
+{City(Postcode): preference, City(Postcode): preference, City(Postcode): preference ....}
 ```
 
 For example: 
 
 ```bash
-Franzi (340€) - {Tropea (89861): 8, Scilla (89058): 3, Reggio (89135): -2}
+{Tropea (89861): 8, Scilla (89058): 3, Reggio (89135): -2}
 ```
 
 <p align="center">
@@ -158,7 +158,7 @@ Once the user clicks on the "Compute'' button, the next page will be loaded. It 
 At this point, some errors can occur: 
 
 1) the HERE Maps API has rejected all requests to obtain city distances (technical issues) 
-2) there has been an error during the calculation. The first error happens if some requests are sent too fast after one another. CORS (Cross-Origin Resource Sharing) might block the request. This is tried to counteract through a small waiting time between sending requests and a maximum number of retries of the same request. The second error can happen when user data was not inserted correctly or when the calculation did not deliver a result (= undefined). \
+2) there has been an error during the calculation. The first error happens if some requests are sent too fast after one another. CORS (Cross-Origin Resource Sharing) might block the request. This is tried to counteract through a small waiting time between sending requests and a maximum number of retries of the same request. The second error can happen when user data was not inserted correctly or when the calculation did not deliver a result (= undefined).
 
 If the route and participants could be determined successfully, following data can be found on the final page (after the loading screen disappears) 
 
