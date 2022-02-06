@@ -50,7 +50,7 @@ For a better understanding of the mechanism, please refer to the attached report
 
 ## :triangular_ruler: Implementierung
 
-
+The scenario and the mechanism have been solved in this project and are now to be visualised by a small implementation.
 
 ### :wrench: Technologies 
 
