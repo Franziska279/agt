@@ -1,0 +1,3196 @@
+[
+    {
+        "cities": [
+            {
+                "name": "Crotone",
+                "lat": 39.08124,
+                "lng": 17.12291
+            },
+            {
+                "name": "Cirella",
+                "lat": 39.71238,
+                "lng": 15.81171
+            },
+            {
+                "name": "Siderno",
+                "lat": 38.26983,
+                "lng": 16.29783
+            },
+            {
+                "name": "Tropea",
+                "lat": 38.67769,
+                "lng": 15.89524
+            },
+            {
+                "name": "Rende",
+                "lat": 39.33207,
+                "lng": 16.18111
+            }
+        ]
+    },
+    {
+        "players": [
+            {
+                "name": "Alice",
+                "budget": "24",
+                "preferences": {
+                    "Crotone;88900": -2,
+                    "Cirella;87032": 5,
+                    "Siderno;89048": 4,
+                    "Tropea;89861": 1
+                }
+            },
+            {
+                "name": "Bob",
+                "budget": "34",
+                "preferences": {
+                    "Crotone;88900": 6,
+                    "Cirella;87032": 4,
+                    "Siderno;89048": -9,
+                    "Tropea;89861": 2
+                }
+            },
+            {
+                "name": "Charlie",
+                "budget": "24",
+                "preferences": {
+                    "Crotone;88900": -1,
+                    "Cirella;87032": 3,
+                    "Siderno;89048": 0,
+                    "Tropea;89861": 3
+                }
+            }
+        ]
+    },
+    {
+        "playerCombinations": [
+            {
+                "name": "Alice",
+                "values": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -2,
+                            "Cirella;87032": 5,
+                            "Siderno;89048": 4,
+                            "Tropea;89861": 1
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Bob",
+                "values": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "preferences": {
+                            "Crotone;88900": 6,
+                            "Cirella;87032": 4,
+                            "Siderno;89048": -9,
+                            "Tropea;89861": 2
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "AliceBob",
+                "values": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -2,
+                            "Cirella;87032": 5,
+                            "Siderno;89048": 4,
+                            "Tropea;89861": 1
+                        }
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "preferences": {
+                            "Crotone;88900": 6,
+                            "Cirella;87032": 4,
+                            "Siderno;89048": -9,
+                            "Tropea;89861": 2
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Charlie",
+                "values": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -1,
+                            "Cirella;87032": 3,
+                            "Siderno;89048": 0,
+                            "Tropea;89861": 3
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "AliceCharlie",
+                "values": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -2,
+                            "Cirella;87032": 5,
+                            "Siderno;89048": 4,
+                            "Tropea;89861": 1
+                        }
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -1,
+                            "Cirella;87032": 3,
+                            "Siderno;89048": 0,
+                            "Tropea;89861": 3
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "BobCharlie",
+                "values": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "preferences": {
+                            "Crotone;88900": 6,
+                            "Cirella;87032": 4,
+                            "Siderno;89048": -9,
+                            "Tropea;89861": 2
+                        }
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -1,
+                            "Cirella;87032": 3,
+                            "Siderno;89048": 0,
+                            "Tropea;89861": 3
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "cityCombinations": [
+            {
+                "name": "Crotone",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    }
+                ],
+                "distance": 239.406
+            },
+            {
+                "name": "Cirella",
+                "values": [
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    }
+                ],
+                "distance": 135.966
+            },
+            {
+                "name": "CrotoneCirella",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    }
+                ],
+                "distance": 375.062
+            },
+            {
+                "name": "Siderno",
+                "values": [
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    }
+                ],
+                "distance": 357.778
+            },
+            {
+                "name": "CrotoneSiderno",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    }
+                ],
+                "distance": 452.996
+            },
+            {
+                "name": "CirellaSiderno",
+                "values": [
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    }
+                ],
+                "distance": 457.379
+            },
+            {
+                "name": "CrotoneCirellaSiderno",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    }
+                ],
+                "distance": 552.597
+            },
+            {
+                "name": "Tropea",
+                "values": [
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 262.244
+            },
+            {
+                "name": "CrotoneTropea",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 408.735
+            },
+            {
+                "name": "CirellaTropea",
+                "values": [
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 361.845
+            },
+            {
+                "name": "CrotoneCirellaTropea",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 508.336
+            },
+            {
+                "name": "SidernoTropea",
+                "values": [
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 393.464
+            },
+            {
+                "name": "CrotoneSidernoTropea",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 488.682
+            },
+            {
+                "name": "CirellaSidernoTropea",
+                "values": [
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 493.927
+            },
+            {
+                "name": "CrotoneCirellaSidernoTropea",
+                "values": [
+                    {
+                        "name": "Crotone",
+                        "lat": 39.08124,
+                        "lng": 17.12291
+                    },
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Siderno",
+                        "lat": 38.26983,
+                        "lng": 16.29783
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 639.993
+            }
+        ]
+    },
+    {
+        "isBelowMaxRouteLength": [
+            {
+                "city": "Crotone",
+                "isBelow": true
+            },
+            {
+                "city": "Cirella",
+                "isBelow": true
+            },
+            {
+                "city": "CrotoneCirella",
+                "isBelow": true
+            },
+            {
+                "city": "Siderno",
+                "isBelow": true
+            },
+            {
+                "city": "CrotoneSiderno",
+                "isBelow": false
+            },
+            {
+                "city": "CirellaSiderno",
+                "isBelow": false
+            },
+            {
+                "city": "CrotoneCirellaSiderno",
+                "isBelow": false
+            },
+            {
+                "city": "Tropea",
+                "isBelow": true
+            },
+            {
+                "city": "CrotoneTropea",
+                "isBelow": true
+            },
+            {
+                "city": "CirellaTropea",
+                "isBelow": true
+            },
+            {
+                "city": "CrotoneCirellaTropea",
+                "isBelow": false
+            },
+            {
+                "city": "SidernoTropea",
+                "isBelow": true
+            },
+            {
+                "city": "CrotoneSidernoTropea",
+                "isBelow": false
+            },
+            {
+                "city": "CirellaSidernoTropea",
+                "isBelow": false
+            },
+            {
+                "city": "CrotoneCirellaSidernoTropea",
+                "isBelow": false
+            }
+        ]
+    },
+    {
+        "costCalculation": [
+            {
+                "city": "Crotone",
+                "cost": "33.94",
+                "calculation": "239.406 * 0.1 + 10"
+            },
+            {
+                "city": "Cirella",
+                "cost": "23.60",
+                "calculation": "135.966 * 0.1 + 10"
+            },
+            {
+                "city": "CrotoneCirella",
+                "cost": "47.51",
+                "calculation": "375.062 * 0.1 + 10"
+            },
+            {
+                "city": "Siderno",
+                "cost": "45.78",
+                "calculation": "357.778 * 0.1 + 10"
+            },
+            {
+                "city": "Tropea",
+                "cost": "36.22",
+                "calculation": "262.244 * 0.1 + 10"
+            },
+            {
+                "city": "CrotoneTropea",
+                "cost": "50.87",
+                "calculation": "408.735 * 0.1 + 10"
+            },
+            {
+                "city": "CirellaTropea",
+                "cost": "46.18",
+                "calculation": "361.845 * 0.1 + 10"
+            },
+            {
+                "city": "SidernoTropea",
+                "cost": "49.35",
+                "calculation": "393.464 * 0.1 + 10"
+            }
+        ]
+    },
+    {
+        "playerCityCombinationsWithUtilities": [
+            {
+                "combination": "CrotoneCirella-AliceBob",
+                "utility": 13,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2,
+                        "Cirella": 5
+                    },
+                    {
+                        "player": "Bob",
+                        "Crotone": 6,
+                        "Cirella": 4
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-AliceBob",
+                "utility": 12,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Cirella": 5,
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Bob",
+                        "Cirella": 4,
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-AliceCharlie",
+                "utility": 12,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Cirella": 5,
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Charlie",
+                        "Cirella": 3,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-BobCharlie",
+                "utility": 12,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Crotone": 6,
+                        "Cirella": 4
+                    },
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1,
+                        "Cirella": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-BobCharlie",
+                "utility": 12,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Cirella": 4,
+                        "Tropea": 2
+                    },
+                    {
+                        "player": "Charlie",
+                        "Cirella": 3,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-Bob",
+                "utility": 10,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Crotone": 6,
+                        "Cirella": 4
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-BobCharlie",
+                "utility": 10,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Crotone": 6,
+                        "Tropea": 2
+                    },
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-AliceBob",
+                "utility": 9,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Cirella": 5
+                    },
+                    {
+                        "player": "Bob",
+                        "Cirella": 4
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-Bob",
+                "utility": 8,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Crotone": 6,
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-AliceCharlie",
+                "utility": 8,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Cirella": 5
+                    },
+                    {
+                        "player": "Charlie",
+                        "Cirella": 3
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-AliceCharlie",
+                "utility": 8,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Siderno": 4,
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Charlie",
+                        "Siderno": 0,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-AliceBob",
+                "utility": 7,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2,
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Bob",
+                        "Crotone": 6,
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-BobCharlie",
+                "utility": 7,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Cirella": 4
+                    },
+                    {
+                        "player": "Charlie",
+                        "Cirella": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-Alice",
+                "utility": 6,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Cirella": 5,
+                        "Tropea": 1
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-Bob",
+                "utility": 6,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Crotone": 6
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-Bob",
+                "utility": 6,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Cirella": 4,
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-Charlie",
+                "utility": 6,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Cirella": 3,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-Alice",
+                "utility": 5,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Cirella": 5
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-Alice",
+                "utility": 5,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Siderno": 4,
+                        "Tropea": 1
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-AliceCharlie",
+                "utility": 5,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2,
+                        "Cirella": 5
+                    },
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1,
+                        "Cirella": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-BobCharlie",
+                "utility": 5,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Crotone": 6
+                    },
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-BobCharlie",
+                "utility": 5,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Tropea": 2
+                    },
+                    {
+                        "player": "Charlie",
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-Alice",
+                "utility": 4,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Siderno": 4
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-Bob",
+                "utility": 4,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Cirella": 4
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-AliceBob",
+                "utility": 4,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2
+                    },
+                    {
+                        "player": "Bob",
+                        "Crotone": 6
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-AliceCharlie",
+                "utility": 4,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Siderno": 4
+                    },
+                    {
+                        "player": "Charlie",
+                        "Siderno": 0
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-AliceCharlie",
+                "utility": 4,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Charlie",
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-Alice",
+                "utility": 3,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2,
+                        "Cirella": 5
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-AliceBob",
+                "utility": 3,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Bob",
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-Charlie",
+                "utility": 3,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Cirella": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-Charlie",
+                "utility": 3,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-Charlie",
+                "utility": 3,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Siderno": 0,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-Bob",
+                "utility": 2,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-Charlie",
+                "utility": 2,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1,
+                        "Cirella": 3
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-Charlie",
+                "utility": 2,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-Alice",
+                "utility": 1,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Tropea": 1
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-AliceCharlie",
+                "utility": 1,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2,
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-Charlie",
+                "utility": 0,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Siderno": 0
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-Alice",
+                "utility": -1,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2,
+                        "Tropea": 1
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-Charlie",
+                "utility": -1,
+                "calculation": [
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-Alice",
+                "utility": -2,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-AliceBob",
+                "utility": -2,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Siderno": 4,
+                        "Tropea": 1
+                    },
+                    {
+                        "player": "Bob",
+                        "Siderno": -9,
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-AliceCharlie",
+                "utility": -3,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Crotone": -2
+                    },
+                    {
+                        "player": "Charlie",
+                        "Crotone": -1
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-BobCharlie",
+                "utility": -4,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Siderno": -9,
+                        "Tropea": 2
+                    },
+                    {
+                        "player": "Charlie",
+                        "Siderno": 0,
+                        "Tropea": 3
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-AliceBob",
+                "utility": -5,
+                "calculation": [
+                    {
+                        "player": "Alice",
+                        "Siderno": 4
+                    },
+                    {
+                        "player": "Bob",
+                        "Siderno": -9
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-Bob",
+                "utility": -7,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Siderno": -9,
+                        "Tropea": 2
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-Bob",
+                "utility": -9,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Siderno": -9
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-BobCharlie",
+                "utility": -9,
+                "calculation": [
+                    {
+                        "player": "Bob",
+                        "Siderno": -9
+                    },
+                    {
+                        "player": "Charlie",
+                        "Siderno": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "paymentsByGrooves": [
+            {
+                "id": "CrotoneCirella-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 10,
+                        "calculation": [
+                            "10 * 2 - 10"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(10 / 19) * 47.51",
+                        "value": 25.005263157894735
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(9 / 19) * 47.51",
+                        "value": 22.50473684210526
+                    }
+                },
+                "maxGrooves": 19,
+                "tourCost": "47.51"
+            },
+            {
+                "id": "CirellaTropea-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 14,
+                        "calculation": [
+                            "10 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(14 / 20) * 46.18",
+                        "value": 32.326
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 6,
+                        "calculation": [
+                            "6 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(6 / 20) * 46.18",
+                        "value": 13.854
+                    }
+                },
+                "maxGrooves": 20,
+                "tourCost": "46.18"
+            },
+            {
+                "id": "CirellaTropea-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 6,
+                        "calculation": [
+                            "6 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(6 / 12) * 46.18",
+                        "value": 23.09
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 6,
+                        "calculation": [
+                            "6 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(6 / 12) * 46.18",
+                        "value": 23.09
+                    }
+                },
+                "maxGrooves": 12,
+                "tourCost": "46.18"
+            },
+            {
+                "id": "CrotoneCirella-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 10,
+                        "calculation": [
+                            "6 * 2 - 2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(10 / 20) * 47.51",
+                        "value": 23.755
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 10,
+                        "calculation": [
+                            "10 * 2 - 10"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(10 / 20) * 47.51",
+                        "value": 23.755
+                    }
+                },
+                "maxGrooves": 20,
+                "tourCost": "47.51"
+            },
+            {
+                "id": "CirellaTropea-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 6,
+                        "calculation": [
+                            "6 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(6 / 20) * 46.18",
+                        "value": 13.854
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 14,
+                        "calculation": [
+                            "10 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(14 / 20) * 46.18",
+                        "value": 32.326
+                    }
+                },
+                "maxGrooves": 20,
+                "tourCost": "46.18"
+            },
+            {
+                "id": "CrotoneCirella-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "47.51"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "47.51"
+            },
+            {
+                "id": "CrotoneTropea-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 10,
+                        "calculation": [
+                            "6 * 2 - 2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(10 / 22) * 50.87",
+                        "value": 23.12272727272727
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 12,
+                        "calculation": [
+                            "10 * 2 - 8"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(12 / 22) * 50.87",
+                        "value": 27.747272727272723
+                    }
+                },
+                "maxGrooves": 22,
+                "tourCost": "50.87"
+            },
+            {
+                "id": "Cirella-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 16,
+                        "calculation": [
+                            "10 * 2 - 4"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(16 / 23) * 23.60",
+                        "value": 16.417391304347827
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 7,
+                        "calculation": [
+                            "6 * 2 - 5"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(7 / 23) * 23.60",
+                        "value": 7.182608695652175
+                    }
+                },
+                "maxGrooves": 23,
+                "tourCost": "23.60"
+            },
+            {
+                "id": "CrotoneTropea-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "50.87"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "50.87"
+            },
+            {
+                "id": "Cirella-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(9 / 16) * 23.60",
+                        "value": 13.275
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 7,
+                        "calculation": [
+                            "6 * 2 - 5"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(7 / 16) * 23.60",
+                        "value": 10.325000000000001
+                    }
+                },
+                "maxGrooves": 16,
+                "tourCost": "23.60"
+            },
+            {
+                "id": "SidernoTropea-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(9 / 16) * 49.35",
+                        "value": 27.759375000000002
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 7,
+                        "calculation": [
+                            "6 * 2 - 5"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(7 / 16) * 49.35",
+                        "value": 21.590625
+                    }
+                },
+                "maxGrooves": 16,
+                "tourCost": "49.35"
+            },
+            {
+                "id": "CrotoneTropea-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 12,
+                        "calculation": [
+                            "10 * 2 - 8"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(12 / 25) * 50.87",
+                        "value": 24.417599999999997
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 13,
+                        "calculation": [
+                            "6 * 2 - -1"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(13 / 25) * 50.87",
+                        "value": 26.4524
+                    }
+                },
+                "maxGrooves": 25,
+                "tourCost": "50.87"
+            },
+            {
+                "id": "Cirella-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(9 / 25) * 23.60",
+                        "value": 8.496
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 16,
+                        "calculation": [
+                            "10 * 2 - 4"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(16 / 25) * 23.60",
+                        "value": 15.104000000000001
+                    }
+                },
+                "maxGrooves": 25,
+                "tourCost": "23.60"
+            },
+            {
+                "id": "CirellaTropea-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "46.18"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "46.18"
+            },
+            {
+                "id": "Crotone-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "33.94"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "33.94"
+            },
+            {
+                "id": "CirellaTropea-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "46.18"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "46.18"
+            },
+            {
+                "id": "CirellaTropea-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "46.18"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "46.18"
+            },
+            {
+                "id": "Cirella-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "23.60"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "23.60"
+            },
+            {
+                "id": "SidernoTropea-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "49.35"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "49.35"
+            },
+            {
+                "id": "CrotoneCirella-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 10,
+                        "calculation": [
+                            "6 * 2 - 2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(10 / 19) * 47.51",
+                        "value": 25.005263157894735
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(9 / 19) * 47.51",
+                        "value": 22.50473684210526
+                    }
+                },
+                "maxGrooves": 19,
+                "tourCost": "47.51"
+            },
+            {
+                "id": "Crotone-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 13,
+                        "calculation": [
+                            "6 * 2 - -1"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(13 / 27) * 33.94",
+                        "value": 16.34148148148148
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 14,
+                        "calculation": [
+                            "10 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(14 / 27) * 33.94",
+                        "value": 17.598518518518517
+                    }
+                },
+                "maxGrooves": 27,
+                "tourCost": "33.94"
+            },
+            {
+                "id": "Tropea-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(9 / 27) * 36.22",
+                        "value": 12.073333333333332
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 18,
+                        "calculation": [
+                            "10 * 2 - 2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(18 / 27) * 36.22",
+                        "value": 24.146666666666665
+                    }
+                },
+                "maxGrooves": 27,
+                "tourCost": "36.22"
+            },
+            {
+                "id": "Siderno-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "45.78"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "45.78"
+            },
+            {
+                "id": "Cirella-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "23.60"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "23.60"
+            },
+            {
+                "id": "Crotone-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 14,
+                        "calculation": [
+                            "10 * 2 - 6"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(14 / 28) * 33.94",
+                        "value": 16.97
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 14,
+                        "calculation": [
+                            "6 * 2 - -2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(14 / 28) * 33.94",
+                        "value": 16.97
+                    }
+                },
+                "maxGrooves": 28,
+                "tourCost": "33.94"
+            },
+            {
+                "id": "Siderno-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 12,
+                        "calculation": [
+                            "6 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(12 / 20) * 45.78",
+                        "value": 27.468
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 8,
+                        "calculation": [
+                            "6 * 2 - 4"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(8 / 20) * 45.78",
+                        "value": 18.312
+                    }
+                },
+                "maxGrooves": 20,
+                "tourCost": "45.78"
+            },
+            {
+                "id": "Tropea-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(9 / 20) * 36.22",
+                        "value": 16.299
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 11,
+                        "calculation": [
+                            "6 * 2 - 1"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(11 / 20) * 36.22",
+                        "value": 19.921
+                    }
+                },
+                "maxGrooves": 20,
+                "tourCost": "36.22"
+            },
+            {
+                "id": "CrotoneCirella-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "47.51"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "47.51"
+            },
+            {
+                "id": "Tropea-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 18,
+                        "calculation": [
+                            "10 * 2 - 2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(18 / 29) * 36.22",
+                        "value": 22.481379310344828
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 11,
+                        "calculation": [
+                            "6 * 2 - 1"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(11 / 29) * 36.22",
+                        "value": 13.738620689655171
+                    }
+                },
+                "maxGrooves": 29,
+                "tourCost": "36.22"
+            },
+            {
+                "id": "Cirella-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "23.60"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "23.60"
+            },
+            {
+                "id": "Tropea-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "36.22"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "36.22"
+            },
+            {
+                "id": "SidernoTropea-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "49.35"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "49.35"
+            },
+            {
+                "id": "Tropea-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "36.22"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "36.22"
+            },
+            {
+                "id": "CrotoneCirella-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "47.51"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "47.51"
+            },
+            {
+                "id": "CrotoneTropea-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "50.87"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "50.87"
+            },
+            {
+                "id": "Tropea-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "36.22"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "36.22"
+            },
+            {
+                "id": "CrotoneTropea-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 10,
+                        "calculation": [
+                            "6 * 2 - 2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(10 / 23) * 50.87",
+                        "value": 22.117391304347823
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 13,
+                        "calculation": [
+                            "6 * 2 - -1"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(13 / 23) * 50.87",
+                        "value": 28.75260869565217
+                    }
+                },
+                "maxGrooves": 23,
+                "tourCost": "50.87"
+            },
+            {
+                "id": "Siderno-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "45.78"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "45.78"
+            },
+            {
+                "id": "CrotoneTropea-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "50.87"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "50.87"
+            },
+            {
+                "id": "Crotone-Charlie",
+                "Charlie": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "33.94"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "33.94"
+            },
+            {
+                "id": "Crotone-Alice",
+                "Alice": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "value": "33.94"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "33.94"
+            },
+            {
+                "id": "SidernoTropea-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 27,
+                        "calculation": [
+                            "10 * 2 - -7"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(27 / 34) * 49.35",
+                        "value": 39.18970588235294
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 7,
+                        "calculation": [
+                            "6 * 2 - 5"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(7 / 34) * 49.35",
+                        "value": 10.160294117647059
+                    }
+                },
+                "maxGrooves": 34,
+                "tourCost": "49.35"
+            },
+            {
+                "id": "Crotone-AliceCharlie",
+                "Alice": {
+                    "grooves": {
+                        "value": 13,
+                        "calculation": [
+                            "6 * 2 - -1"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(13 / 27) * 33.94",
+                        "value": 16.34148148148148
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 14,
+                        "calculation": [
+                            "6 * 2 - -2"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(14 / 27) * 33.94",
+                        "value": 17.598518518518517
+                    }
+                },
+                "maxGrooves": 27,
+                "tourCost": "33.94"
+            },
+            {
+                "id": "SidernoTropea-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 9,
+                        "calculation": [
+                            "6 * 2 - 3"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(9 / 36) * 49.35",
+                        "value": 12.3375
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 27,
+                        "calculation": [
+                            "10 * 2 - -7"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(27 / 36) * 49.35",
+                        "value": 37.0125
+                    }
+                },
+                "maxGrooves": 36,
+                "tourCost": "49.35"
+            },
+            {
+                "id": "Siderno-AliceBob",
+                "Alice": {
+                    "grooves": {
+                        "value": 29,
+                        "calculation": [
+                            "10 * 2 - -9"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(29 / 37) * 45.78",
+                        "value": 35.88162162162162
+                    }
+                },
+                "Bob": {
+                    "grooves": {
+                        "value": 8,
+                        "calculation": [
+                            "6 * 2 - 4"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(8 / 37) * 45.78",
+                        "value": 9.898378378378379
+                    }
+                },
+                "maxGrooves": 37,
+                "tourCost": "45.78"
+            },
+            {
+                "id": "SidernoTropea-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "49.35"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "49.35"
+            },
+            {
+                "id": "Siderno-Bob",
+                "Bob": {
+                    "grooves": {
+                        "value": 0,
+                        "calculation": [
+                            "0 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "value": "45.78"
+                    }
+                },
+                "maxGrooves": 0,
+                "tourCost": "45.78"
+            },
+            {
+                "id": "Siderno-BobCharlie",
+                "Bob": {
+                    "grooves": {
+                        "value": 12,
+                        "calculation": [
+                            "6 * 2 - 0"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 34,
+                        "calculation": "(12 / 41) * 45.78",
+                        "value": 13.399024390243902
+                    }
+                },
+                "Charlie": {
+                    "grooves": {
+                        "value": 29,
+                        "calculation": [
+                            "10 * 2 - -9"
+                        ]
+                    },
+                    "payment": {
+                        "budget": 24,
+                        "calculation": "(29 / 41) * 45.78",
+                        "value": 32.3809756097561
+                    }
+                },
+                "maxGrooves": 41,
+                "tourCost": "45.78"
+            }
+        ]
+    },
+    {
+        "isAffordable": [
+            {
+                "combination": "CirellaTropea-AliceCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 23.09
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 23.09
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-BobCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 23.755
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 23.755
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-AliceBob",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 16.417391304347827
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 7.182608695652175
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-AliceCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 13.275
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 10.325000000000001
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-BobCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 8.496
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 15.104000000000001
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-Bob",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "33.94"
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-Alice",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "23.60"
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-BobCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 16.34148148148148
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 17.598518518518517
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-Bob",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "23.60"
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-AliceBob",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 16.97
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 16.97
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-AliceCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 16.299
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 19.921
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-AliceBob",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 22.481379310344828
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 13.738620689655171
+                    }
+                ]
+            },
+            {
+                "combination": "Cirella-Charlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "23.60"
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-AliceCharlie",
+                "affordable": true,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 16.34148148148148
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 17.598518518518517
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-AliceBob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 25.005263157894735
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 22.50473684210526
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-AliceBob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 32.326
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 13.854
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-BobCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 13.854
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 32.326
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-Bob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "47.51"
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-BobCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 23.12272727272727
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 27.747272727272723
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-Bob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "50.87"
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-AliceCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 27.759375000000002
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 21.590625
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-AliceBob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 24.417599999999997
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 26.4524
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "46.18"
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-Bob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "46.18"
+                    }
+                ]
+            },
+            {
+                "combination": "CirellaTropea-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "46.18"
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "49.35"
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-AliceCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 25.005263157894735
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 22.50473684210526
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-BobCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 12.073333333333332
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 24.146666666666665
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "45.78"
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-AliceCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 27.468
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 18.312
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "47.51"
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "36.22"
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "49.35"
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-Bob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "36.22"
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneCirella-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "47.51"
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "50.87"
+                    }
+                ]
+            },
+            {
+                "combination": "Tropea-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "36.22"
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-AliceCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 22.117391304347823
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 28.75260869565217
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "45.78"
+                    }
+                ]
+            },
+            {
+                "combination": "CrotoneTropea-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "50.87"
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-Charlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": "33.94"
+                    }
+                ]
+            },
+            {
+                "combination": "Crotone-Alice",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": "33.94"
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-AliceBob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 39.18970588235294
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 10.160294117647059
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-BobCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 12.3375
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 37.0125
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-AliceBob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "payment": 35.88162162162162
+                    },
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 9.898378378378379
+                    }
+                ]
+            },
+            {
+                "combination": "SidernoTropea-Bob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "49.35"
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-Bob",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": "45.78"
+                    }
+                ]
+            },
+            {
+                "combination": "Siderno-BobCharlie",
+                "affordable": false,
+                "participants": [
+                    {
+                        "name": "Bob",
+                        "budget": "34",
+                        "payment": 13.399024390243902
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "payment": 32.3809756097561
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "bestThree": [
+            {
+                "participants": {
+                    "name": "AliceCharlie",
+                    "values": [
+                        {
+                            "name": "Alice",
+                            "budget": "24",
+                            "preferences": {
+                                "Crotone;88900": -2,
+                                "Cirella;87032": 5,
+                                "Siderno;89048": 4,
+                                "Tropea;89861": 1
+                            },
+                            "grooves": 6,
+                            "payment": 23.09,
+                            "affordable": true
+                        },
+                        {
+                            "name": "Charlie",
+                            "budget": "24",
+                            "preferences": {
+                                "Crotone;88900": -1,
+                                "Cirella;87032": 3,
+                                "Siderno;89048": 0,
+                                "Tropea;89861": 3
+                            },
+                            "grooves": 6,
+                            "payment": 23.09,
+                            "affordable": true
+                        }
+                    ]
+                },
+                "cities": {
+                    "name": "CirellaTropea",
+                    "values": [
+                        {
+                            "name": "Cirella",
+                            "lat": 39.71238,
+                            "lng": 15.81171
+                        },
+                        {
+                            "name": "Tropea",
+                            "lat": 38.67769,
+                            "lng": 15.89524
+                        }
+                    ],
+                    "distance": 361.845,
+                    "belowDistanceLimit": true,
+                    "cost": "46.18"
+                },
+                "distance": 361.845,
+                "utility": 12,
+                "tourCost": "46.18",
+                "affordable": true
+            },
+            {
+                "participants": {
+                    "name": "BobCharlie",
+                    "values": [
+                        {
+                            "name": "Bob",
+                            "budget": "34",
+                            "preferences": {
+                                "Crotone;88900": 6,
+                                "Cirella;87032": 4,
+                                "Siderno;89048": -9,
+                                "Tropea;89861": 2
+                            },
+                            "grooves": 10,
+                            "payment": 23.755,
+                            "affordable": true
+                        },
+                        {
+                            "name": "Charlie",
+                            "budget": "24",
+                            "preferences": {
+                                "Crotone;88900": -1,
+                                "Cirella;87032": 3,
+                                "Siderno;89048": 0,
+                                "Tropea;89861": 3
+                            },
+                            "grooves": 10,
+                            "payment": 23.755,
+                            "affordable": true
+                        }
+                    ]
+                },
+                "cities": {
+                    "name": "CrotoneCirella",
+                    "values": [
+                        {
+                            "name": "Crotone",
+                            "lat": 39.08124,
+                            "lng": 17.12291
+                        },
+                        {
+                            "name": "Cirella",
+                            "lat": 39.71238,
+                            "lng": 15.81171
+                        }
+                    ],
+                    "distance": 375.062,
+                    "belowDistanceLimit": true,
+                    "cost": "47.51"
+                },
+                "distance": 375.062,
+                "utility": 12,
+                "tourCost": "47.51",
+                "affordable": true
+            },
+            {
+                "participants": {
+                    "name": "AliceBob",
+                    "values": [
+                        {
+                            "name": "Alice",
+                            "budget": "24",
+                            "preferences": {
+                                "Crotone;88900": -2,
+                                "Cirella;87032": 5,
+                                "Siderno;89048": 4,
+                                "Tropea;89861": 1
+                            },
+                            "grooves": 16,
+                            "payment": 16.417391304347827,
+                            "affordable": true
+                        },
+                        {
+                            "name": "Bob",
+                            "budget": "34",
+                            "preferences": {
+                                "Crotone;88900": 6,
+                                "Cirella;87032": 4,
+                                "Siderno;89048": -9,
+                                "Tropea;89861": 2
+                            },
+                            "grooves": 7,
+                            "payment": 7.182608695652175,
+                            "affordable": true
+                        }
+                    ]
+                },
+                "cities": {
+                    "name": "Cirella",
+                    "values": [
+                        {
+                            "name": "Cirella",
+                            "lat": 39.71238,
+                            "lng": 15.81171
+                        }
+                    ],
+                    "distance": 135.966,
+                    "belowDistanceLimit": true,
+                    "cost": "23.60"
+                },
+                "distance": 135.966,
+                "utility": 9,
+                "tourCost": "23.60",
+                "affordable": true
+            }
+        ]
+    },
+    {
+        "bestTour": {
+            "participants": {
+                "name": "AliceCharlie",
+                "values": [
+                    {
+                        "name": "Alice",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -2,
+                            "Cirella;87032": 5,
+                            "Siderno;89048": 4,
+                            "Tropea;89861": 1
+                        },
+                        "grooves": 6,
+                        "payment": 23.09,
+                        "affordable": true
+                    },
+                    {
+                        "name": "Charlie",
+                        "budget": "24",
+                        "preferences": {
+                            "Crotone;88900": -1,
+                            "Cirella;87032": 3,
+                            "Siderno;89048": 0,
+                            "Tropea;89861": 3
+                        },
+                        "grooves": 6,
+                        "payment": 23.09,
+                        "affordable": true
+                    }
+                ]
+            },
+            "cities": {
+                "name": "CirellaTropea",
+                "values": [
+                    {
+                        "name": "Cirella",
+                        "lat": 39.71238,
+                        "lng": 15.81171
+                    },
+                    {
+                        "name": "Tropea",
+                        "lat": 38.67769,
+                        "lng": 15.89524
+                    }
+                ],
+                "distance": 361.845,
+                "belowDistanceLimit": true,
+                "cost": "46.18"
+            },
+            "distance": 361.845,
+            "utility": 12,
+            "tourCost": "46.18",
+            "affordable": true
+        }
+    }
+]
