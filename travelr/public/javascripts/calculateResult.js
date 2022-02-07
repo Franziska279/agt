@@ -1,10 +1,10 @@
 let tourDebug = [];
 
 async function getResult(json) {
-    let maxKm = parseInt(json["max_km"]);
+    let maxKm = parseFloat(json["max_km"]);
     let k = parseInt(json["k"]);
-    let fixedCost = parseInt(json["fixed_cost"]);
-    let kmCost = parseInt(json["km_cost"]);
+    let fixedCost = parseFloat(json["fixed_cost"]);
+    let kmCost = parseFloat(json["km_cost"]);
     let start = json["start"];
     let playerData = json["data"];
     let cities = json["cities"];
@@ -128,7 +128,7 @@ function calculatePlayerPaymentForGrooves(tourCost, playersCopy, maxGrooves) {
     for (let p in playersCopy) {
         let player = playersCopy[p];
         let payment = 0;
-        let budget = parseInt(player["budget"]);
+        let budget = parseFloat(player["budget"]);
         let grooves = player.grooves
         debugObj[`${player.name}`] = {
             "payment": {
