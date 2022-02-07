@@ -133,16 +133,19 @@ Through this displayed button, a page to modify the tour calculation parameters 
 
 
 
-It is very important that each player is added to the mechanism with the following syntax:
+It is very important that each player is added to the mechanism with the following syntax (this is assembled by the app):
 
 ```bash
-{City(Postcode): preference, City(Postcode): preference, City(Postcode): preference ....}
+Name (Budget) - {City (Postcode): Utility, City (Postcode): Utility, City (Postcode): Utility ....}
 ```
 
-For example: 
+Therefore, user input has to be in the following format: 
 
 ```bash
-{Tropea (89861): 8, Scilla (89058): 3, Reggio (89135): -2}
+Name: Text
+Budget: Integer Number + €
+Preferences: City (PostalCode): Utility, City (PostalCode): Utility, ...
+i.e. Tropea (89861): 8, Scilla (89058): 3, Reggio (89135): -2
 ```
 
 <p align="center">
